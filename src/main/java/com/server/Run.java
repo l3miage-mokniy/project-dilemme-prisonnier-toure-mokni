@@ -3,12 +3,10 @@ package com.server;
 import data.object.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +18,8 @@ public class Run {
 	private List<Joueur> players = new ArrayList<Joueur>();
 
 	@GetMapping("/")
-	Boolean test() {
-		return true;
+	String test() {
+		return "<h1>TEST</h1>";
 	}
 
 	@PostMapping("/new_player/{name_player}")

@@ -35,12 +35,12 @@ public class Run {
 	 * @param name_player
 	 * @return
 	 */
-	@PostMapping("/new_player/{name_player}")
-	Boolean new_player(@PathVariable(value = "name_player") String name_player) {
+	@GetMapping("/new_player/{name_player}")
+	Integer new_player(@PathVariable(value = "name_player") String name_player) {
 		Joueur j = new Joueur(name_player);
 		j.setId(Tools.random1_10000());
 		this.players.add(j);
-		return true;
+		return j.getId();
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class Run {
 		}
 		return players;
 	}
-
+	
 	/**
 	 * CREER UNE PARTIE
 	 * 
@@ -88,8 +88,8 @@ public class Run {
 
 	/**
 	 * REJOINDRE UNE PARTIE 
-	 * @param id_party
-	 * @param id_joueur
+	 * @param id_party - L'id de la partie qu'on veut rejoindre
+	 * @param id_joueur - L'id du joueur qui veut rejoindre
 	 * @return
 	 */
 	@PostMapping("/join-party/{id_party}&{id_joueur}")
@@ -106,6 +106,12 @@ public class Run {
 	}
 	
 	
+	/**
+	 * QUITTER UNE PARTIE
+	 * @param id_joueur - ID du joueur qui veut quitter la partie
+	 * @param id_strategy - ID de la partie que l'on veut quitter
+	 * @return
+	 */
 	@PostMapping("/leave-my-game/{id_joueur}&{id_strategy}")
 	Boolean leaveGame(@PathVariable(value = "id_joueur") int id_joueur,@PathVariable(value = "id_strategy") int id_strategy) {
 		Joueur j = Tools.getJoueur(players, id_joueur);

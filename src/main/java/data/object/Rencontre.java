@@ -29,6 +29,33 @@ public class Rencontre {
 		this.createur = createur;
 	}
 
+	/*
+	public void startGame() {
+		for(int i = 0; i<nb_tours; i++) {
+			this.newTurn();
+		}		
+		System.out.println("Score joueur1 = "+this.score1+" Score joueur 2 = "+this.score2);
+	}
+	*/
+	
+	private void newTurn() {
+		if(createur.isHaveLeave()) {
+			this.coupJ1.add(createur.getStrategy().play(coupJ1, coupJ2));
+		} else {
+			//@TODO => LAISSER CHOIX POSSIBLE
+			System.out.println("Veuillez saisir votre coup : ");
+		}
+		
+		if(joueur2.isHaveLeave()) {
+			this.coupJ2.add(joueur2.getStrategy().play(coupJ2, coupJ1));
+		} else {
+			//@TODO => LAISSER CHOIX POSSIBLES
+			System.out.println("Veuillez saisir votre coup : ");
+		}
+		
+		updateScore(this.coupJ1.get(this.coupJ1.size()-1),this.coupJ2.get(this.coupJ2.size()-1));
+	}
+	
 	public boolean joinParty(Joueur joueur2) {
 		if (this.joueur2 == null) {
 			this.joueur2 = joueur2;
@@ -47,6 +74,30 @@ public class Rencontre {
 			return 0;
 		} else {
 			return 1;
+		}
+	}	
+
+	private void updateScore(Coup coup1, Coup coup2) {
+		if(coup1 == coup2 && coup1 == Coup.COOPERER) {
+			this.score1 += C;
+			this.score2 += C;
+		} else if(coup1 == coup2 && coup1 == Coup.TRAHIR) {
+			this.score1 += P;
+			this.score2 += P;
+		} else if(coup1 != coup2 && coup1 == Coup.TRAHIR) {
+			this.score1 += T;
+			this.score2 += D;
+		} else {
+			this.score1 += D;
+			this.score2 += T;			
+		}
+	}
+	
+	public Coup[] getTurn(int turn) {
+		if((turn <= this.nb_tours && turn > 0)&&turn<current_tour) {
+			return new Coup[] {this.coupJ1.get(turn-1),this.coupJ2.get(turn-1)};	
+		} else {
+			return new Coup[] {null,null};	
 		}
 	}
 

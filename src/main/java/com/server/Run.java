@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tools.Tools;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/")
 public class Run {
 
 	private List<Joueur> players = new ArrayList<Joueur>();
+	private List<Rencontre> rencontresOpen = new ArrayList<Rencontre>();
+	private List<Rencontre> rencontresClosed = new ArrayList<Rencontre>();
 
 	@GetMapping("/")
 	public ModelAndView test() {
@@ -39,6 +43,23 @@ public class Run {
 		}
 
 		return players.trim();
+	}	
+
+	@PostMapping("/new-party/{nb_tours}")
+	Boolean newParty(@PathVariable(value = "nb_tours") int nb_tours) {
+		Rencontre r = new Rencontre(nb_tours);
+		r.setId(Tools.random1_10000());
+		this.rencontresOpen.add(r);
+		return true;
 	}
+
+	@GetMapping("/party-open")
+	String getAllPartyOpen() {
+		String allParty = "";
+		for (Rencontre r: this.rencontresOpen) {
+			allParty += "Rencontre num : " + r.getId()+" elle se joue en "+r.getNb_tours()+" tours.\n";
+		}
+		return allParty;
+	}	
 
 }

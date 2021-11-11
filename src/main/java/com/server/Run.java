@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +24,8 @@ public class Run {
 		return true;
 	}
 
-	@GetMapping("/new_player/{name_player}")
-	Boolean new_player(@PathVariable(value = "name_player") String name_player) {
+	@PostMapping("/new_player/{name_player}")
+	Boolean new_player(@PathVariable(value = "name_player") String name_player, @RequestBody Joueur j) {
 		this.players.add(new Joueur(name_player));
 		return true;
 	}

@@ -12,6 +12,7 @@ public class Rencontre {
 
 	private int id;
 	private int nb_tours;
+	private int current_tour;
 	public List<Coup> coupJ1;
 	public List<Coup> coupJ2;
 	public int score1 = 0;
@@ -19,7 +20,7 @@ public class Rencontre {
 
 	public Joueur createur;
 	public Joueur joueur2 = null;
-	
+
 	public Rencontre(int nb_tours, Joueur createur) {
 		super();
 		this.nb_tours = nb_tours;
@@ -29,14 +30,26 @@ public class Rencontre {
 	}
 
 	public boolean joinParty(Joueur joueur2) {
-		if(this.joueur2 == null) {
+		if (this.joueur2 == null) {
 			this.joueur2 = joueur2;
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
+	public int canPlay() {
+		if (nb_tours == current_tour) {
+			return -2;
+		} else if (this.joueur2 == null) {
+			return -1;
+		} else if (coupJ1.size() != coupJ2.size()) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -49,12 +62,11 @@ public class Rencontre {
 		return nb_tours;
 	}
 
-
 	public Joueur getCreateur() {
 		return createur;
 	}
 
 	public Joueur getJoueur2() {
 		return joueur2;
-	}	
+	}
 }

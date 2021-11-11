@@ -104,5 +104,20 @@ public class Run {
 		}
 		return false;
 	}
-
+	
+	
+	@PostMapping("/leave-my-game/{id_joueur}&{id_strategy}")
+	Boolean leaveGame(@PathVariable(value = "id_joueur") int id_joueur,@PathVariable(value = "id_strategy") int id_strategy) {
+		Joueur j = Tools.getJoueur(players, id_joueur);
+		j.leave(id_strategy);
+		
+		return true;
+	}
+	
+	@PostMapping("/ask-to-play/{id_party}")
+	Integer askToPlay(@PathVariable(value = "id_party") int id_party) {
+		Rencontre r = Tools.getAParty(id_party, this.rencontresOpen, this.rencontresClosed);
+		return r.canPlay();		
+	}
+	
 }

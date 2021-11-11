@@ -53,6 +53,18 @@ public class Tools {
 		}
 	}
 
+	public static Rencontre getPartyClose(List<Rencontre> rencontresClose, int id_party) {
+		int i=0;
+		while(id_party != rencontresClose.get(i).getId()) {
+			i++;
+		}
+		if(i<rencontresClose.size()) {
+			return rencontresClose.get(i);
+		} else {
+			return null;
+		}
+	}
+
 	public static void closeAGame(Rencontre r, List<Rencontre> rencontresOpen, List<Rencontre> rencontresClosed) {
 		int i=0;
 		while(r != rencontresOpen.get(i)) {
@@ -62,6 +74,17 @@ public class Tools {
 		rencontresOpen.remove(i);
 		rencontresClosed.add(r);
 		
+	}
+
+	public static Rencontre getAParty(int id_party, List<Rencontre> rencontresOpen, List<Rencontre> rencontresClosed) {
+		Rencontre r = null;
+		if(rencontresClosed.size()>0) {
+			r = Tools.getPartyClose(rencontresClosed, id_party);
+		}
+		if(r == null && rencontresOpen.size()>0) {
+			r = Tools.getPartyOpen(rencontresOpen, id_party);
+		}
+		return r;
 	}
 
 }

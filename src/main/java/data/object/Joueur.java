@@ -1,16 +1,15 @@
 package data.object;
 
-/*
-import object.Rencontre;
-import strategy.Strategy;
-import strategy.StrategyFactory;
-*/
+import data.object.Rencontre;
+import com.strategy.Strategy;
+import com.strategy.StrategyFactory;
 
 public class Joueur {
 
+	private int id;
 	private String name;
 	private boolean haveLeave = false;
-	//private Strategy strategy;
+	private Strategy strategy;
 	
 	public Joueur(String name) {
 		super();
@@ -18,21 +17,13 @@ public class Joueur {
 	}
 	
 	public void leave(int id_strategy) {
-		//this.strategy = StrategyFactory.getStrategy(id_strategy);
+		this.strategy = StrategyFactory.getStrategy(id_strategy);
 		this.haveLeave = true;		
 	}
 	
-	/*
-	public Rencontre createParty(int nb_tours) {
-		return new Rencontre(nb_tours, this);
-	}
-	*/
-	
-	/*
 	public boolean joinParty(Rencontre r) {
 		return r.joinParty(this);
 	}
-	*/
 
 	public String getName() {
 		return name;
@@ -42,11 +33,16 @@ public class Joueur {
 		return haveLeave;
 	}
 
-	/*
 	public Strategy getStrategy() {
 		return strategy;
 	}
-	*/
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 }

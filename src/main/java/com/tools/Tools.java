@@ -1,5 +1,10 @@
 package com.tools;
 
+import java.util.List;
+
+import data.object.Joueur;
+import data.object.Rencontre;
+
 public class Tools {
 
 	public static int random0_2() {
@@ -22,4 +27,41 @@ public class Tools {
 	public static int random1_10000() {
 		return (int) (Math.random() * (10000 - 1 + 1) + 1);
 	}
+
+	public static Joueur getJoueur(List<Joueur> players, int id_joueur) {
+		int i=0;
+		while(id_joueur != players.get(i).getId()) {
+			i++;
+		}
+		if(i<players.size()) {
+			return players.get(i);
+		} else {
+			return null;
+		}
+		
+	}
+
+	public static Rencontre getPartyOpen(List<Rencontre> rencontresOpen, int id_party) {
+		int i=0;
+		while(id_party != rencontresOpen.get(i).getId()) {
+			i++;
+		}
+		if(i<rencontresOpen.size()) {
+			return rencontresOpen.get(i);
+		} else {
+			return null;
+		}
+	}
+
+	public static void closeAGame(Rencontre r, List<Rencontre> rencontresOpen, List<Rencontre> rencontresClosed) {
+		int i=0;
+		while(r != rencontresOpen.get(i)) {
+			i++;
+		}
+		
+		rencontresOpen.remove(i);
+		rencontresClosed.add(r);
+		
+	}
+
 }

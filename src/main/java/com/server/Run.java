@@ -22,6 +22,8 @@ public class Run {
 	private List<Rencontre> rencontresOpen = new ArrayList<Rencontre>();
 	private List<Rencontre> rencontresClosed = new ArrayList<Rencontre>();
 
+	// test pull
+
 	@GetMapping("/")
 	public ModelAndView test() {
 	    ModelAndView modelAndView = new ModelAndView();

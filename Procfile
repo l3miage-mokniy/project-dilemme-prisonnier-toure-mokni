@@ -1,1 +1,1 @@
-web: java -jar target/java-dilemme-prisonnier-toure-mokni-1.0.jar
+web: java -jar target/project-dilemme-prisonnier-toure-mokni-1.0.jar

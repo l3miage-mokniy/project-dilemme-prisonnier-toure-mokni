@@ -1,4 +1,4 @@
-package com.example;
+package com.server;
 
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @CrossOrigin
@@ -18,8 +19,10 @@ public class Run {
 	private List<Joueur> players = new ArrayList<Joueur>();
 
 	@GetMapping("/")
-	String test() {
-		return "TEST";
+	public ModelAndView test() {
+	    ModelAndView modelAndView = new ModelAndView();
+	    modelAndView.setViewName("home");
+	    return modelAndView;
 	}
 
 	@PostMapping("/new_player/{name_player}")

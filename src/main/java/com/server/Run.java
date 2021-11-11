@@ -25,7 +25,7 @@ public class Run {
 	}
 
 	@PostMapping("/new_player/{name_player}")
-	Boolean new_player(@PathVariable(value = "name_player") String name_player, @RequestBody Joueur j) {
+	Boolean new_player(@PathVariable(value = "name_player") String name_player) {
 		this.players.add(new Joueur(name_player));
 		return true;
 	}

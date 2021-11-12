@@ -18,6 +18,9 @@ public class Rencontre {
 	public int score1 = 0;
 	public int score2 = 0;
 
+	public boolean haveLeaveJ1 = false;
+	public boolean haveLeaveJ2 = false;
+
 	public Joueur createur;
 	public Joueur joueur2 = null;
 
@@ -30,31 +33,29 @@ public class Rencontre {
 	}
 
 	/*
-	public void startGame() {
-		for(int i = 0; i<nb_tours; i++) {
-			this.newTurn();
-		}		
-		System.out.println("Score joueur1 = "+this.score1+" Score joueur 2 = "+this.score2);
-	}
-	*/
-	
+	 * public void startGame() { for(int i = 0; i<nb_tours; i++) { this.newTurn(); }
+	 * System.out.println("Score joueur1 = "+this.score1+" Score joueur 2 = "+this.
+	 * score2); }
+	 
+
 	private void newTurn() {
-		if(createur.isHaveLeave()) {
+		if (createur.isHaveLeave()) {
 			this.coupJ1.add(createur.getStrategy().play(coupJ1, coupJ2));
 		} else {
-			//@TODO => LAISSER CHOIX POSSIBLE
+			// @TODO => LAISSER CHOIX POSSIBLE
 			System.out.println("Veuillez saisir votre coup : ");
 		}
-		
-		if(joueur2.isHaveLeave()) {
+
+		if (joueur2.isHaveLeave()) {
 			this.coupJ2.add(joueur2.getStrategy().play(coupJ2, coupJ1));
 		} else {
-			//@TODO => LAISSER CHOIX POSSIBLES
+			// @TODO => LAISSER CHOIX POSSIBLES
 			System.out.println("Veuillez saisir votre coup : ");
 		}
-		
-		updateScore(this.coupJ1.get(this.coupJ1.size()-1),this.coupJ2.get(this.coupJ2.size()-1));
+
+		updateScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1));
 	}
+*/
 	
 	public boolean joinParty(Joueur joueur2) {
 		if (this.joueur2 == null) {
@@ -75,29 +76,42 @@ public class Rencontre {
 		} else {
 			return 1;
 		}
-	}	
+	}
 
 	private void updateScore(Coup coup1, Coup coup2) {
-		if(coup1 == coup2 && coup1 == Coup.COOPERER) {
+		if (coup1 == coup2 && coup1 == Coup.COOPERER) {
 			this.score1 += C;
 			this.score2 += C;
-		} else if(coup1 == coup2 && coup1 == Coup.TRAHIR) {
+		} else if (coup1 == coup2 && coup1 == Coup.TRAHIR) {
 			this.score1 += P;
 			this.score2 += P;
-		} else if(coup1 != coup2 && coup1 == Coup.TRAHIR) {
+		} else if (coup1 != coup2 && coup1 == Coup.TRAHIR) {
 			this.score1 += T;
 			this.score2 += D;
 		} else {
 			this.score1 += D;
-			this.score2 += T;			
+			this.score2 += T;
 		}
 	}
-	
+
 	public Coup[] getTurn(int turn) {
-		if((turn <= this.nb_tours && turn > 0)&&turn<current_tour) {
-			return new Coup[] {this.coupJ1.get(turn-1),this.coupJ2.get(turn-1)};	
+		if ((turn <= this.nb_tours && turn > 0) && turn < current_tour) {
+			return new Coup[] { this.coupJ1.get(turn - 1), this.coupJ2.get(turn - 1) };
 		} else {
-			return new Coup[] {null,null};	
+			return new Coup[] { null, null };
+		}
+	}
+
+	public String getScore() {
+		return this.createur.getName() + " : " + this.score1 + " point(s) - " + this.joueur2.getName() + " : "
+				+ this.score2 + " point(s)";
+	}
+
+	public void leave(Joueur j) {
+		if (j == this.createur) {
+			this.haveLeaveJ1 = true;
+		} else if (j == this.joueur2) {
+			this.haveLeaveJ2 = true;
 		}
 	}
 

@@ -1,7 +1,6 @@
 package com.tools;
 
 import java.util.List;
-
 import data.object.Joueur;
 import data.object.Rencontre;
 

@@ -8,7 +8,6 @@ public class Joueur {
 
 	private int id;
 	private String name;
-	private boolean haveLeave = false;
 	private Strategy strategy;
 	
 	public Joueur(String name) {
@@ -18,7 +17,6 @@ public class Joueur {
 	
 	public void leave(int id_strategy) {
 		this.strategy = StrategyFactory.getStrategy(id_strategy);
-		this.haveLeave = true;		
 	}
 	
 	public boolean joinParty(Rencontre r) {
@@ -27,10 +25,6 @@ public class Joueur {
 
 	public String getName() {
 		return name;
-	}
-
-	public boolean isHaveLeave() {
-		return haveLeave;
 	}
 
 	public Strategy getStrategy() {

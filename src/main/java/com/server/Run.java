@@ -56,7 +56,7 @@ public class Run {
 		}
 		return players;
 	}
-	
+
 	/**
 	 * CREER UNE PARTIE
 	 * 
@@ -87,43 +87,54 @@ public class Run {
 	}
 
 	/**
-	 * REJOINDRE UNE PARTIE 
-	 * @param id_party - L'id de la partie qu'on veut rejoindre
+	 * REJOINDRE UNE PARTIE
+	 * 
+	 * @param id_party  - L'id de la partie qu'on veut rejoindre
 	 * @param id_joueur - L'id du joueur qui veut rejoindre
 	 * @return
 	 */
 	@PostMapping("/join-party/{id_party}&{id_joueur}")
-	Boolean joinParty(@PathVariable(value = "id_party") int id_party,@PathVariable(value = "id_joueur") int id_joueur) {
+	Boolean joinParty(@PathVariable(value = "id_party") int id_party,
+			@PathVariable(value = "id_joueur") int id_joueur) {
 		Rencontre r = Tools.getPartyOpen(this.rencontresOpen, id_party);
 		Joueur j = Tools.getJoueur(this.players, id_joueur);
 		if (r != null && j != null) {
-			if(j.joinParty(r)) {
-				Tools.closeAGame(r,rencontresOpen,rencontresClosed);
+			if (j.joinParty(r)) {
+				Tools.closeAGame(r, rencontresOpen, rencontresClosed);
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	
+
 	/**
 	 * QUITTER UNE PARTIE
-	 * @param id_joueur - ID du joueur qui veut quitter la partie
+	 * 
+	 * @param id_joueur   - ID du joueur qui veut quitter la partie
 	 * @param id_strategy - ID de la partie que l'on veut quitter
 	 * @return
 	 */
-	@PostMapping("/leave-my-game/{id_joueur}&{id_strategy}")
-	Boolean leaveGame(@PathVariable(value = "id_joueur") int id_joueur,@PathVariable(value = "id_strategy") int id_strategy) {
+	@PostMapping("/leave-my-game/{id_joueur}&{id_strategy}&{id_party}")
+	Boolean leaveGame(@PathVariable(value = "id_joueur") int id_joueur,
+			@PathVariable(value = "id_strategy") int id_strategy, @PathVariable(value = "id_party") int id_party) {
 		Joueur j = Tools.getJoueur(players, id_joueur);
 		j.leave(id_strategy);
-		
+		Rencontre r = Tools.getPartyClose(this.rencontresClosed, id_party);
+		r.leave(j);
+
 		return true;
 	}
-	
+
 	@PostMapping("/ask-to-play/{id_party}")
 	Integer askToPlay(@PathVariable(value = "id_party") int id_party) {
 		Rencontre r = Tools.getAParty(id_party, this.rencontresOpen, this.rencontresClosed);
-		return r.canPlay();		
+		return r.canPlay();
 	}
-	
+
+	@GetMapping("/get-score/{id_party}")
+	String getScore(@PathVariable(value = "id_party") int id_party) {
+		Rencontre r = Tools.getPartyClose(this.rencontresClosed, id_party);
+		return r.getScore();
+	}
+
 }

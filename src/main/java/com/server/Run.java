@@ -137,4 +137,10 @@ public class Run {
 		return r.getScore();
 	}
 
+	@GetMapping("/have-join/{id_party}")
+	Boolean haveJoin(@PathVariable(value = "id_party") int id_party) {
+		Rencontre r = Tools.getAParty(id_party, this.rencontresOpen, this.rencontresClosed);
+		return r.haveJoin();
+	}
+
 }

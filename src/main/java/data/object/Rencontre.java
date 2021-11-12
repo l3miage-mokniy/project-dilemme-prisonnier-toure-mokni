@@ -114,6 +114,14 @@ public class Rencontre {
 			this.haveLeaveJ2 = true;
 		}
 	}
+	
+	public boolean haveJoin() {
+		if(this.joueur2 == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 	public int getId() {
 		return id;

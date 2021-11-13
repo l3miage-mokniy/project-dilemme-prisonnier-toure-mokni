@@ -89,6 +89,12 @@ public class Rencontre {
 		while (!this.bothHavePlay()) {
 			if (!haveWait) {
 				haveWait = true;
+				try {
+					TimeUnit.MILLISECONDS.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 
@@ -104,16 +110,16 @@ public class Rencontre {
 			current_tour++;
 		}
 		System.out.println("PLAY");
-		if(this.gameFinished()) {
-			if (score1==score2) {
-				return "EGALITE : "+this.createur.getName() + " a un score de : " + this.score1 + " point(s) - " +
-				this.joueur2.getName() + " a  un score de : " + this.score2 + " point(s)";
-			}else if(this.score1>this.score2) {
-				return "VICTOIRE DE : "+this.createur.getName() + " avec un score de : " + this.score1 + " point(s). " +
-				this.joueur2.getName() + " a  un score de : " + this.score2 + " point(s)";
+		if (this.gameFinished()) {
+			if (score1 == score2) {
+				return "EGALITE : " + this.createur.getName() + " a un score de : " + this.score1 + " point(s) - "
+						+ this.joueur2.getName() + " a  un score de : " + this.score2 + " point(s)";
+			} else if (this.score1 > this.score2) {
+				return "VICTOIRE DE : " + this.createur.getName() + " avec un score de : " + this.score1 + " point(s). "
+						+ this.joueur2.getName() + " a  un score de : " + this.score2 + " point(s)";
 			} else {
-				return "VICTOIRE DE : "+this.joueur2.getName() + " avec un score de : " + this.score2 + " point(s). " +
-				this.createur.getName() + " a  un score de : " + this.score1 + " point(s)";
+				return "VICTOIRE DE : " + this.joueur2.getName() + " avec un score de : " + this.score2 + " point(s). "
+						+ this.createur.getName() + " a  un score de : " + this.score1 + " point(s)";
 			}
 		} else {
 			return this.getScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1));
@@ -153,9 +159,9 @@ public class Rencontre {
 			return true;
 		}
 	}
-	
+
 	public boolean gameFinished() {
-		return this.nb_tours+1 == this.current_tour;
+		return this.nb_tours + 1 == this.current_tour;
 	}
-	
+
 }

@@ -89,12 +89,12 @@ public class Rencontre {
 		while (!this.bothHavePlay()) {
 			if (!haveWait) {
 				haveWait = true;
-				try {
-					TimeUnit.MILLISECONDS.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			}
+			try {
+				TimeUnit.MILLISECONDS.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 

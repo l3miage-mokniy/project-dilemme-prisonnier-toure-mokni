@@ -148,7 +148,12 @@ public class Run {
 	boolean haveJoin(@PathVariable(value = "id_party") int id_party) {
 		Rencontre r = Tools.getAParty(id_party, this.rencontresOpen, this.rencontresClosed);
 		while(!r.haveJoin()) {
-			
+			try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		}
 		return true;
 	}

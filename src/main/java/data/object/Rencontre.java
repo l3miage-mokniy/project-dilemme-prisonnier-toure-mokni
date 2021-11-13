@@ -86,7 +86,7 @@ public class Rencontre {
 			}
 		}
 
-		while (!this.bothHavePlay()) {
+		while (!this.bothHavePlay() && (haveLeaveJ1 && haveLeaveJ2)) {
 			if (!haveWait) {
 				haveWait = true;
 			}

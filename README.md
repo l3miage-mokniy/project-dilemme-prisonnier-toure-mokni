@@ -1,4 +1,4 @@
-# l3m-PI-serveur : Partie serveur du Projet Intégrateur L3 MIAGE 2020-2021
+# l3m-PI-serveur : Partie serveur du Projet Dilemme du prisonnier
 
 A stub which can easily be deployed to Heroku.
 

@@ -12,7 +12,7 @@ import com.tools.Tools;
  *         r�ciprocit�.
  *
  */
-public class DonnantDeuxDonnant implements Strategy {
+public class StrategyDonnantDeuxDonnant implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

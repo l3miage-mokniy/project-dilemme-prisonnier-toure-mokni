@@ -12,7 +12,7 @@ import com.tools.Tools;
  *         avant la r�ciprocit�. Joue parfois un coup au hasard.
  *
  */
-public class StrategieDonnantDeuxDonnantAleatoire implements Strategy {
+public class StrategyDonnantDeuxDonnantAleatoire implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

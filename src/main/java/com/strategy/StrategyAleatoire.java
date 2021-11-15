@@ -4,7 +4,7 @@ import java.util.List;
 import com.tools.Coup;
 import com.tools.Tools;
 
-public class StategyAleatoire implements Strategy {
+public class StrategyAleatoire implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

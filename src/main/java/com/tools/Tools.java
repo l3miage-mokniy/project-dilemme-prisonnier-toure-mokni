@@ -15,6 +15,10 @@ public class Tools {
 		return (int) (Math.random() * (1 - 0 + 1) + 0);
 	}
 	
+	public static int random0_4() {
+		return (int) (Math.random() * (4 - 0 + 1) + 0);
+	}
+	
 	public static Coup generateCoup50_50() {
 		switch (Tools.random0_1()) {
 		case 0:

@@ -11,7 +11,7 @@ import com.tools.Tools;
  *         donnant et 1/3 joue aleatoire
  * 
  */
-public class StrategyDonnantDonnantAleatoire implements Strategy {
+class StrategyDonnantDonnantAleatoire implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

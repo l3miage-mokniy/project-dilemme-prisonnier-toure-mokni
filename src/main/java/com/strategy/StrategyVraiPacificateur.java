@@ -13,7 +13,7 @@ import com.tools.Tools;
  * mais essayer parfois de coopérer même si l'adversaire trahi
  * */
 
-public class StrategyVraiPacificateur implements Strategy {
+class StrategyVraiPacificateur implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

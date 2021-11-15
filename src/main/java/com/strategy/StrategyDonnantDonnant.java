@@ -9,7 +9,7 @@ import com.tools.Tools;
  * @author Yanis Donnant donnant - Jouer comme le dernier coup de l'adversaire
  *
  */
-public class StrategyDonnantDonnant implements Strategy {
+class StrategyDonnantDonnant implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

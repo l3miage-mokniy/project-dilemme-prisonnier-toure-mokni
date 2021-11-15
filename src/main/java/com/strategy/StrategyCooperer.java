@@ -10,7 +10,7 @@ import java.util.List;
  *
  * 
  */
-public class StrategyCooperer implements Strategy {
+class StrategyCooperer implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

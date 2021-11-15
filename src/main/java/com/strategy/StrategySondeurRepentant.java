@@ -10,7 +10,7 @@ import com.tools.Tools;
  * Sondeur repentant jouer le dernier coup de l'adversaire et parfois coopérer
  * */
 
-public class StrategySondeurRepentant  implements Strategy{
+class StrategySondeurRepentant  implements Strategy{
    
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

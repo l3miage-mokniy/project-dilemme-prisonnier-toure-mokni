@@ -9,7 +9,7 @@ import com.tools.Coup;
  * @author Yanis Toujours trahir
  *
  */
-public class StrategyTrahir implements Strategy {
+class StrategyTrahir implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

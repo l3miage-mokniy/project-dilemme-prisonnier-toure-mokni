@@ -10,7 +10,7 @@ import com.tools.Tools;
  * Rancunier coopérer jusqu'à ce que l'adversaire trahisse et toujours trahir si tel est le cas
  * */
 
-public class StrategyRancunier implements Strategy {
+class StrategyRancunier implements Strategy {
     int tour = 0;
     int trahi = 0;
 	@Override

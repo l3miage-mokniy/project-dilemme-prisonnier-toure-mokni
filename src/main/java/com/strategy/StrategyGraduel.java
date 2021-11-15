@@ -12,7 +12,7 @@ import com.tools.Coup;
  *
  */
 
-public class StrategyGraduel implements Strategy {
+class StrategyGraduel implements Strategy {
 	int mustTrayed = 0;
 	int numberOfPunishment = 0;
 	

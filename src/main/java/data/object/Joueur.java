@@ -1,6 +1,5 @@
 package data.object;
 
-import data.object.Rencontre;
 import com.strategy.Strategy;
 import com.strategy.StrategyFactory;
 

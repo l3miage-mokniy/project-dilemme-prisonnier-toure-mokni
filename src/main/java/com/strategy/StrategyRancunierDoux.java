@@ -12,7 +12,7 @@ import com.tools.Coup;
  * 
  */
 
-public class StrategyRancunierDoux implements Strategy {
+class StrategyRancunierDoux implements Strategy {
 	int tourOfPunishment = 0;
 
 	@Override

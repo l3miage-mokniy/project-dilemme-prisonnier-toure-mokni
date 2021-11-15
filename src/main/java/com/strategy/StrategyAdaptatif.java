@@ -9,7 +9,7 @@ import com.tools.Coup;
  * Adaptatif Commencer avec c,c,c,c,c,c,t,t,t,t,t et choisir c ou le t qui a donné le meilleur score 
  * */
 
-public class StrategyAdaptatif implements Strategy {
+class StrategyAdaptatif implements Strategy {
 	
 
 	private int tour = 0;

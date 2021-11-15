@@ -1,12 +1,24 @@
 package com.strategy;
 
 public class StrategyFactory {
+
+	private static StrategyFactory sF;
+	
+	private StrategyFactory() {
+		super();
+	}
+
+	public static StrategyFactory getInstance() {
+		if (sF == null) {
+			sF = new StrategyFactory();
+		}
+		return sF;
+	}
 	
     public static Strategy getStrategy(int id_strategy) {
       switch(id_strategy) {
         case 0:
             return new StrategyCooperer();
-           
         case 1:
             return new StrategyTrahir();
         case 2:
@@ -41,8 +53,6 @@ public class StrategyFactory {
         	return new StrategyGraduel();
         case 17 :  
         	return new StrategyRancunierDoux();
-        	
-        	
         default:
         	return null;
         }

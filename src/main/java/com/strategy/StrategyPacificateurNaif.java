@@ -11,7 +11,7 @@ import com.tools.Coup;
  */
 import com.tools.Tools;
 
-public class StrategyPacificateurNaif implements Strategy {
+class StrategyPacificateurNaif implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

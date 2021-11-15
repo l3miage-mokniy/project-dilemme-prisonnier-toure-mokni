@@ -11,7 +11,7 @@ import com.tools.Tools;
  * 
  */
 
-public class StrategyPavlov implements Strategy {
+class StrategyPavlov implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

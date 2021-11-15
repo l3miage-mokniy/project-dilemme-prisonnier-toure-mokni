@@ -9,7 +9,7 @@ import com.tools.Tools;
  * @author Allassane 
  * Donnant donnant soupçonneux commencer par trahir puis jouer comme dans la stratégy donnant donnant*/
 
-public class StrategyDonnantDonnantSoupconneux implements Strategy {
+class StrategyDonnantDonnantSoupconneux implements Strategy {
 	
 	 private int tour = 0;
 	@Override

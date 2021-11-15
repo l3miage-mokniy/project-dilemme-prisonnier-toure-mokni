@@ -14,7 +14,7 @@ import com.tools.Tools;
 * 
 */
 
-public class StrategySondeurNaif implements Strategy {
+class StrategySondeurNaif implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {

@@ -3,10 +3,15 @@ package data.object;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tools.Coup;
 
 public class Rencontre {
+
+	private static Logger logger = Logger.getLogger("Logger");
+	  
 	private static final int T = 5;
 	private static final int D = 0;
 	private static final int C = 3;
@@ -93,8 +98,9 @@ public class Rencontre {
 			try {
 				TimeUnit.MILLISECONDS.sleep(500);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+			    logger.log(Level.WARNING, "Interrupted!", e);
+			    Thread.currentThread().interrupt();
 			}
 		}
 
@@ -102,8 +108,9 @@ public class Rencontre {
 			try {
 				TimeUnit.SECONDS.sleep(1);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+			    logger.log(Level.WARNING, "Interrupted!", e);
+			    Thread.currentThread().interrupt();
 			}
 		} else {
 			updateScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1));

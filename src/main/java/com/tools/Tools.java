@@ -78,13 +78,12 @@ public class Tools {
 
 	public static void closeAGame(Rencontre r, List<Rencontre> rencontresOpen, List<Rencontre> rencontresClosed) {
 		int i = 0;
-		while (r != rencontresOpen.get(i)) {
+		while (i < rencontresOpen.size() && r != rencontresOpen.get(i)) {
 			i++;
 		}
 
-		rencontresOpen.remove(i);
 		rencontresClosed.add(r);
-
+		rencontresOpen.remove(i);
 	}
 
 	public static Rencontre getAParty(int id_party, List<Rencontre> rencontresOpen, List<Rencontre> rencontresClosed) {

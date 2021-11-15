@@ -4,6 +4,8 @@ import data.object.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,8 @@ import com.tools.Tools;
 @RequestMapping("/")
 public class Run {
 
+
+	private static Logger logger = Logger.getLogger("Logger");
 	private List<Joueur> players = new ArrayList<Joueur>();
 	private List<Rencontre> rencontresOpen = new ArrayList<Rencontre>();
 	private List<Rencontre> rencontresClosed = new ArrayList<Rencontre>();
@@ -151,8 +155,9 @@ public class Run {
 			try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		    logger.log(Level.WARNING, "Interrupted!", e);
+		    Thread.currentThread().interrupt();
 		}
 		}
 		return true;

@@ -80,15 +80,15 @@ public class Rencontre {
 		boolean haveWait = false;
 
 		if (id_joueur == this.createur.getId()) {
-			this.coupJ1.add(c);
 			if (haveLeaveJ2) {
 				this.coupJ2.add(joueur2.getStrategy().play(coupJ2, coupJ1));
 			}
+			this.coupJ1.add(c);
 		} else {
-			this.coupJ2.add(c);
 			if (haveLeaveJ1) {
 				this.coupJ1.add(createur.getStrategy().play(coupJ1, coupJ2));
 			}
+			this.coupJ2.add(c);
 		}
 
 		while (!this.bothHavePlay() && !(haveLeaveJ1 && haveLeaveJ2)) {

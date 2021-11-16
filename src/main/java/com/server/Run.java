@@ -89,12 +89,15 @@ public class Run {
 	 */
 	@GetMapping("/party-open")
 	public String getAllPartyOpen() {
-		String allGame = "";
-		for (Rencontre game : this.gameOpen) {
-			allGame += "Rencontre num : " + game.getId() + " elle se joue en " + game.getNumberOfTurn()
-					+ " tours.#";
+		if(!this.gameOpen.isEmpty()) {
+			String allGame = "";
+			for (Rencontre game : this.gameOpen) {
+				allGame += "Rencontre num : " + game.getId() + " elle se joue en " + game.getNumberOfTurn()
+						+ " tours.#";
+			}
+			return allGame.substring(0, allGame.length() - 1);
 		}
-		return allGame.substring(0, allGame.length() - 1);
+		return "";
 	}
 
 	/**

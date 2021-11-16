@@ -6,17 +6,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.tools.Coefficient;
 import com.tools.Coup;
 
 public class Rencontre {
 
 	private static Logger logger = Logger.getLogger("Logger");
 	  
-	private static final int T = 5;
-	private static final int D = 0;
-	private static final int C = 3;
-	private static final int P = 1;
-
 	private int id;
 	private int nb_tours;
 	private int current_tour = 1;
@@ -145,17 +141,17 @@ public class Rencontre {
 
 	private void updateScore(Coup coup1, Coup coup2) {
 		if (coup1 == coup2 && coup1 == Coup.COOPERER) {
-			this.score1 += C;
-			this.score2 += C;
+			this.score1 += Coefficient.C.getPoint();
+			this.score2 += Coefficient.C.getPoint();
 		} else if (coup1 == coup2 && coup1 == Coup.TRAHIR) {
-			this.score1 += P;
-			this.score2 += P;
+			this.score1 += Coefficient.P.getPoint();
+			this.score2 += Coefficient.P.getPoint();
 		} else if (coup1 != coup2 && coup1 == Coup.TRAHIR) {
-			this.score1 += T;
-			this.score2 += D;
+			this.score1 += Coefficient.T.getPoint();
+			this.score2 += Coefficient.D.getPoint();
 		} else {
-			this.score1 += D;
-			this.score2 += T;
+			this.score1 += Coefficient.D.getPoint();
+			this.score2 += Coefficient.T.getPoint();
 		}
 	}
 

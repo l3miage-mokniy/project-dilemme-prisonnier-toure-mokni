@@ -12,7 +12,7 @@ import com.tools.Coup;
 public class Rencontre {
 
 	private static Logger logger = Logger.getLogger("Logger");
-	  
+
 	private int id;
 	private int nb_tours;
 	private int current_tour = 1;
@@ -52,29 +52,10 @@ public class Rencontre {
 		}
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getNb_tours() {
-		return nb_tours;
-	}
-
-	public Joueur getCreateur() {
-		return createur;
-	}
-
-	public Joueur getJoueur2() {
-		return joueur2;
-	}
-
-	public String play(int id_joueur, Coup c) {
+	public synchronized String play(int id_joueur, Coup c) {
 		boolean haveWait = false;
 
+		// ON ENREGISTRE LE COUP
 		if (id_joueur == this.createur.getId()) {
 			if (haveLeaveJ2) {
 				this.coupJ2.add(joueur2.getStrategy().play(coupJ2, coupJ1));
@@ -87,32 +68,36 @@ public class Rencontre {
 			this.coupJ2.add(c);
 		}
 
+		// SI L'AUTRE N'A PAS JOUE ON ATTEND
 		while (!this.bothHavePlay() && !(haveLeaveJ1 && haveLeaveJ2)) {
 			if (!haveWait) {
 				haveWait = true;
 			}
 			try {
-				TimeUnit.MILLISECONDS.sleep(500);
+				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			    logger.log(Level.WARNING, "Interrupted!", e);
-			    Thread.currentThread().interrupt();
+				logger.log(Level.WARNING, "Interrupted!", e);
+				Thread.currentThread().interrupt();
 			}
 		}
 
-		if (haveWait) {
-			try {
-				TimeUnit.SECONDS.sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			    logger.log(Level.WARNING, "Interrupted!", e);
-			    Thread.currentThread().interrupt();
-			}
-		} else {
+		// SI ON A PAS ATTENDU ON UPDATE LES SCORES ET REVEILLE LES ENDORMIS
+		if (!haveWait) {
 			updateScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1));
 			current_tour++;
+			notifyAll();
 		}
-		System.out.println("PLAY");
+
+		//ON RETOURNE LES SCORES
+		return this.getScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1));
+	}
+
+	private boolean bothHavePlay() {
+		return this.coupJ1.size() == this.coupJ2.size();
+	}
+
+	public String getScore(Coup coupCreateur, Coup coupJoueur2) {
 		if (this.gameFinished()) {
 			if (score1 == score2) {
 				return "EGALITE : " + this.createur.getName() + " a un score de : " + this.score1 + " point(s) - "
@@ -125,18 +110,10 @@ public class Rencontre {
 						+ this.createur.getName() + " a  un score de : " + this.score1 + " point(s)";
 			}
 		} else {
-			return this.getScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1));
+			return this.createur.getName() + " a joué " + coupCreateur + " et a désormais un score de : " + this.score1
+					+ " point(s) - " + this.joueur2.getName() + " a joué " + coupJoueur2
+					+ " et a désormais un score de : " + this.score2 + " point(s)";
 		}
-	}
-
-	private boolean bothHavePlay() {
-		return this.coupJ1.size() == this.coupJ2.size();
-	}
-
-	public String getScore(Coup coupCreateur, Coup coupJoueur2) {
-		return this.createur.getName() + " a joué " + coupCreateur + " et a désormais un score de : " + this.score1
-				+ " point(s) - " + this.joueur2.getName() + " a joué " + coupJoueur2 + " et a désormais un score de : "
-				+ this.score2 + " point(s)";
 	}
 
 	private void updateScore(Coup coup1, Coup coup2) {
@@ -167,4 +144,23 @@ public class Rencontre {
 		return this.nb_tours + 1 == this.current_tour;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getNb_tours() {
+		return nb_tours;
+	}
+
+	public Joueur getCreateur() {
+		return createur;
+	}
+
+	public Joueur getJoueur2() {
+		return joueur2;
+	}
 }

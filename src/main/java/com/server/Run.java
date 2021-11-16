@@ -30,7 +30,7 @@ public class Run {
 	private List<Rencontre> rencontresClosed = new ArrayList<Rencontre>();
 
 	@GetMapping("/")
-	public ModelAndView test() {
+	public ModelAndView homeServer() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("home");
 		return modelAndView;

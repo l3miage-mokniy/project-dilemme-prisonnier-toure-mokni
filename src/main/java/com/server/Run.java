@@ -107,13 +107,14 @@ public class Run {
 	 * @return
 	 */
 	@GetMapping("/join-party/{id_party}&{id_joueur}")
-	Boolean joinParty(@PathVariable(value = "id_party") int id_party,
+	synchronized Boolean joinParty(@PathVariable(value = "id_party") int id_party,
 			@PathVariable(value = "id_joueur") int id_joueur) {
 		Rencontre r = Tools.getPartyOpen(this.rencontresOpen, id_party);
 		Joueur j = Tools.getJoueur(this.players, id_joueur);
 		if (r != null && j != null) {
 			if (j.joinParty(r)) {
 				Tools.closeAGame(r, rencontresOpen, rencontresClosed);
+				notifyAll();
 				return true;
 			}
 		}
@@ -149,16 +150,16 @@ public class Run {
 	}
 	
 	@GetMapping("/have-join/{id_party}")
-	boolean haveJoin(@PathVariable(value = "id_party") int id_party) {
+	synchronized boolean haveJoin(@PathVariable(value = "id_party") int id_party) {
 		Rencontre r = Tools.getAParty(id_party, this.rencontresOpen, this.rencontresClosed);
 		while(!r.haveJoin()) {
 			try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		    logger.log(Level.WARNING, "Interrupted!", e);
-		    Thread.currentThread().interrupt();
-		}
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				logger.log(Level.WARNING, "Interrupted!", e);
+				Thread.currentThread().interrupt();
+			}			
 		}
 		return true;
 	}

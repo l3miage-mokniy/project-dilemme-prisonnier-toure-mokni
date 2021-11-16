@@ -6,20 +6,20 @@ import data.object.Rencontre;
 
 public class Tools {
 
-	public static int random0_2() {
+	public static int randomBetween0And2() {
 		return (int) (Math.random() * (2 - 0 + 1) + 0);
 	}
 
-	public static int random0_1() {
+	public static int randomBetween0And1() {
 		return (int) (Math.random() * (1 - 0 + 1) + 0);
 	}
 	
-	public static int random0_4() {
+	public static int randomBetween0And4() {
 		return (int) (Math.random() * (4 - 0 + 1) + 0);
 	}
 	
-	public static Coup generateCoup50_50() {
-		switch (Tools.random0_1()) {
+	public static Coup generateRandomChoice() {
+		switch (Tools.randomBetween0And1()) {
 		case 0:
 			return Coup.TRAHIR;
 		default:
@@ -31,9 +31,9 @@ public class Tools {
 		return (int) (Math.random() * (10000 - 1 + 1) + 1);
 	}
 
-	public static Joueur getJoueur(List<Joueur> players, int id_joueur) {
+	public static Joueur getJoueur(List<Joueur> players, int idPlayer) {
 		int i = 0;
-		while (i<players.size() && id_joueur != players.get(i).getId()) {
+		while (i<players.size() && idPlayer != players.get(i).getId()) {
 			i++;
 		}
 		if (i < players.size()) {
@@ -44,14 +44,14 @@ public class Tools {
 
 	}
 
-	public static Rencontre getPartyOpen(List<Rencontre> rencontresOpen, int id_party) {
-		if (rencontresOpen.size() > 0) {
+	public static Rencontre getGameOpen(List<Rencontre> gameOpen, int idParty) {
+		if (!gameOpen.isEmpty()) {
 			int i = 0;
-			while ( i < rencontresOpen.size() && id_party != rencontresOpen.get(i).getId()) {
+			while ( i < gameOpen.size() && idParty != gameOpen.get(i).getId()) {
 				i++;
 			}
-			if (i < rencontresOpen.size()) {
-				return rencontresOpen.get(i);
+			if (i < gameOpen.size()) {
+				return gameOpen.get(i);
 			} else {
 				return null;
 			}
@@ -60,14 +60,14 @@ public class Tools {
 		}
 	}
 
-	public static Rencontre getPartyClose(List<Rencontre> rencontresClose, int id_party) {
-		if (rencontresClose.size() > 0) {
+	public static Rencontre getGameClosed(List<Rencontre> gameClosed, int idGame) {
+		if (!gameClosed.isEmpty()) {
 			int i = 0;
-			while (i < rencontresClose.size() && id_party != rencontresClose.get(i).getId()) {
+			while (i < gameClosed.size() && idGame != gameClosed.get(i).getId()) {
 				i++;
 			}
-			if (i < rencontresClose.size()) {
-				return rencontresClose.get(i);
+			if (i < gameClosed.size()) {
+				return gameClosed.get(i);
 			} else {
 				return null;
 			}
@@ -76,23 +76,22 @@ public class Tools {
 		}
 	}
 
-	public static void closeAGame(Rencontre r, List<Rencontre> rencontresOpen, List<Rencontre> rencontresClosed) {
+	public static void closeAGame(Rencontre r, List<Rencontre> gameOpen, List<Rencontre> gameClosed) {
 		int i = 0;
-		while (i < rencontresOpen.size() && r != rencontresOpen.get(i)) {
+		while (i < gameOpen.size() && r != gameOpen.get(i)) {
 			i++;
 		}
-
-		rencontresClosed.add(r);
-		rencontresOpen.remove(i);
+		gameClosed.add(r);
+		gameOpen.remove(i);
 	}
 
-	public static Rencontre getAParty(int id_party, List<Rencontre> rencontresOpen, List<Rencontre> rencontresClosed) {
+	public static Rencontre getAGame(int idGame, List<Rencontre> gameOpen, List<Rencontre> gameClosed) {
 		Rencontre r = null;
-		if (rencontresClosed.size() > 0) {
-			r = Tools.getPartyClose(rencontresClosed, id_party);
+		if (!gameClosed.isEmpty()) {
+			r = Tools.getGameClosed(gameClosed, idGame);
 		}
-		if (r == null && rencontresOpen.size() > 0) {
-			r = Tools.getPartyOpen(rencontresOpen, id_party);
+		if (r == null && !gameOpen.isEmpty()) {
+			r = Tools.getGameOpen(gameOpen, idGame);
 		}
 		return r;
 	}

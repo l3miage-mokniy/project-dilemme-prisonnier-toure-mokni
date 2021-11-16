@@ -26,7 +26,7 @@ class StrategyDonnantDeuxDonnantTest {
 		
 		myList.add(strat.play(myList, ennemiList));
 		
-		assertEquals(myList.get(1), Coup.TRAHIR);
+		assertEquals(Coup.TRAHIR,myList.get(1));
 		
 	}
 	@Test
@@ -43,7 +43,7 @@ class StrategyDonnantDeuxDonnantTest {
 		
 		myList.add(strat.play(myList, ennemiList));
 		
-		assertEquals(myList.get(1), Coup.COOPERER);
+		assertEquals(Coup.COOPERER,myList.get(1));
 		
 	}
 

@@ -16,11 +16,11 @@ class StrategyPavlovAleatoire implements Strategy{
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		if(mineList.size()>=1 && ennemiesList.size() >=1) {
+		if(!mineList.isEmpty() && !ennemiesList.isEmpty()) {
 			if( (mineList.get(mineList.size()-1)== Coup.TRAHIR && ennemiesList.get(ennemiesList.size()-1)== Coup.COOPERER) || 
 					(mineList.get(mineList.size()-1)== Coup.COOPERER && ennemiesList.get(ennemiesList.size()-1)== Coup.COOPERER) ) {
-				if(Tools.random0_4()==3) {
-					if(Tools.random0_1() == 1) {
+				if(Tools.randomBetween0And4()==3) {
+					if(Tools.randomBetween0And1() == 1) {
 						return Coup.COOPERER;
 					}
 					else {
@@ -32,7 +32,7 @@ class StrategyPavlovAleatoire implements Strategy{
 				}
 			}
 			else {
-				if(Tools.random0_1() == 1) {
+				if(Tools.randomBetween0And1() == 1) {
 					return Coup.COOPERER;
 				}
 				else {
@@ -41,7 +41,7 @@ class StrategyPavlovAleatoire implements Strategy{
 			}
 		}
 		else {
-			if(Tools.random0_1() == 1) {
+			if(Tools.randomBetween0And1() == 1) {
 				return Coup.COOPERER;
 			}
 			else {

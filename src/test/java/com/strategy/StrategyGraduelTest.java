@@ -45,24 +45,22 @@ class StrategyGraduelTest {
 		
 		
 		
-		assertEquals(myList.get(4), Coup.COOPERER);
-		assertEquals(myList.get(5), Coup.COOPERER);
-		assertEquals(myList.get(6), Coup.TRAHIR);
-		assertEquals(myList.get(7), Coup.TRAHIR);
-		assertEquals(myList.get(8), Coup.TRAHIR);
-		assertEquals(myList.get(9), Coup.COOPERER);
-		assertEquals(myList.get(10), Coup.COOPERER);
+		assertEquals(Coup.COOPERER,myList.get(4));
+		assertEquals(Coup.COOPERER,myList.get(5));
+		assertEquals(Coup.TRAHIR,myList.get(6));
+		assertEquals(Coup.TRAHIR,myList.get(7));
+		assertEquals(Coup.TRAHIR,myList.get(8));
+		assertEquals(Coup.COOPERER,myList.get(9));
+		assertEquals(Coup.COOPERER,myList.get(10));
 	}
 	
 	@Test
 	void applyRancunierDouxPunishmentEvenAdversayCooperateDuringTheProcessTest() {
-
 		List<Coup> myList = new ArrayList<Coup>();
 		List<Coup> ennemiList = new ArrayList<Coup>();
 		
 		Strategy strat = new StrategyGraduel();
-		
-		
+				
 		ennemiList.add(Coup.COOPERER);
 		myList.add(Coup.COOPERER);
 		ennemiList.add(Coup.TRAHIR);
@@ -85,16 +83,13 @@ class StrategyGraduelTest {
 		myList.add(strat.play(myList, ennemiList));
 		myList.add(strat.play(myList, ennemiList));
 		
-		
-		
-		
-		assertEquals(myList.get(4), Coup.COOPERER);
-		assertEquals(myList.get(5), Coup.COOPERER);
-		assertEquals(myList.get(6), Coup.TRAHIR);
-		assertEquals(myList.get(7), Coup.TRAHIR);
-		assertEquals(myList.get(8), Coup.TRAHIR);
-		assertEquals(myList.get(9), Coup.COOPERER);
-		assertEquals(myList.get(10), Coup.COOPERER);
+		assertEquals(Coup.COOPERER,myList.get(4));
+		assertEquals(Coup.COOPERER,myList.get(5));
+		assertEquals(Coup.TRAHIR,myList.get(6));
+		assertEquals(Coup.TRAHIR,myList.get(7));
+		assertEquals(Coup.TRAHIR,myList.get(8));
+		assertEquals(Coup.COOPERER,myList.get(9));
+		assertEquals(Coup.COOPERER,myList.get(10));
 	}
 
 

@@ -32,13 +32,13 @@ class StrategyRancunierDouxTest {
 		myList.add(strat.play(myList, ennemiList));
 		myList.add(strat.play(myList, ennemiList));
 		
-		assertEquals(myList.get(0), Coup.COOPERER);
-		assertEquals(myList.get(1), Coup.COOPERER);
-		assertEquals(myList.get(2), Coup.TRAHIR);
-		assertEquals(myList.get(3), Coup.TRAHIR);
-		assertEquals(myList.get(4), Coup.TRAHIR);
-		assertEquals(myList.get(5), Coup.TRAHIR);
-		assertEquals(myList.get(6), Coup.COOPERER);
-		assertEquals(myList.get(7), Coup.COOPERER);
+		assertEquals(Coup.COOPERER,myList.get(0));
+		assertEquals(Coup.COOPERER,myList.get(1));
+		assertEquals(Coup.TRAHIR,myList.get(2));
+		assertEquals(Coup.TRAHIR,myList.get(3));
+		assertEquals(Coup.TRAHIR,myList.get(4));
+		assertEquals(Coup.TRAHIR,myList.get(5));
+		assertEquals(Coup.COOPERER,myList.get(6));
+		assertEquals(Coup.COOPERER,myList.get(7));
 	}
 }

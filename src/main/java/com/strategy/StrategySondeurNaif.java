@@ -18,8 +18,8 @@ class StrategySondeurNaif implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		if(ennemiesList.size() >= 1) {
-			if(Tools.random0_4() == 3) {
+		if(!ennemiesList.isEmpty()) {
+			if(Tools.randomBetween0And4() == 3) {
 				return Coup.TRAHIR;
 			}
 			else {

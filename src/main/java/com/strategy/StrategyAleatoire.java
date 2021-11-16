@@ -8,7 +8,7 @@ class StrategyAleatoire implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		return Tools.generateCoup50_50();
+		return Tools.generateRandomChoice();
 	}
 
 }

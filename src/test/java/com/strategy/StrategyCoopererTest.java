@@ -26,9 +26,9 @@ class StrategyCoopererTest {
 		ennemiList.add(Coup.TRAHIR);
 		myList.add(strat.play(myList, ennemiList));
 		
-		assertEquals(myList.get(0), Coup.COOPERER);
-		assertEquals(myList.get(1), Coup.COOPERER);
-		assertEquals(myList.get(2), Coup.COOPERER);
+		assertEquals(Coup.COOPERER,myList.get(0));
+		assertEquals(Coup.COOPERER,myList.get(1));
+		assertEquals(Coup.COOPERER,myList.get(2));
 		
 	}
 }

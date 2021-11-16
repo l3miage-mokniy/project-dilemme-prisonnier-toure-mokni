@@ -19,7 +19,7 @@ class StrategyGraduel implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		if(ennemiesList.size() >= 1 ) {
+		if(!ennemiesList.isEmpty()) {
 			if( mustTrayed == 0 && ennemiesList.get(ennemiesList.size()-1) != Coup.TRAHIR) {
 				return Coup.COOPERER;
 			}

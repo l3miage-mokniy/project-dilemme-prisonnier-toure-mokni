@@ -16,8 +16,8 @@ class StrategyPacificateurNaif implements Strategy {
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
 		
-		if(ennemiesList.size() >= 1) {
-			if(Tools.random0_4() == 3 && ennemiesList.get(ennemiesList.size()-1) == Coup.TRAHIR) {
+		if(!ennemiesList.isEmpty()) {
+			if(Tools.randomBetween0And4() == 3 && ennemiesList.get(ennemiesList.size()-1) == Coup.TRAHIR) {
 				return Coup.COOPERER;
 			}
 			else {
@@ -25,7 +25,7 @@ class StrategyPacificateurNaif implements Strategy {
 			}	
 		}
 		else {
-			if(Tools.random0_1() == 1) {
+			if(Tools.randomBetween0And1() == 1) {
 				return Coup.COOPERER;
 			}
 			else {

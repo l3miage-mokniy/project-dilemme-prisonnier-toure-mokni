@@ -18,12 +18,12 @@ class StrategyVraiPacificateur implements Strategy {
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
 		
-		if(ennemiesList.size() >= 1) {
+		if(!ennemiesList.isEmpty()) {
 			if(ennemiesList.get(ennemiesList.size()-1) != Coup.TRAHIR && ennemiesList.get(ennemiesList.size()-2) != Coup.TRAHIR) {
 				return Coup.COOPERER;
 			}
 			else {
-				if(Tools.random0_4() == 3 && ennemiesList.get(ennemiesList.size()-1) == Coup.TRAHIR ) {
+				if(Tools.randomBetween0And4() == 3 && ennemiesList.get(ennemiesList.size()-1) == Coup.TRAHIR ) {
 					return Coup.COOPERER;
 					
 				}
@@ -34,7 +34,7 @@ class StrategyVraiPacificateur implements Strategy {
 			}	
 		}
 		else {
-			if(Tools.random0_1() == 1) {
+			if(Tools.randomBetween0And1() == 1) {
 				return Coup.COOPERER;
 			}
 			else {

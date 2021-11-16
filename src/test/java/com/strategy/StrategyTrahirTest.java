@@ -13,7 +13,6 @@ class StrategyTrahirTest {
 
 	@Test
 	void betrayOnlyTest() {
-
 		List<Coup> myList = new ArrayList<Coup>();
 		List<Coup> ennemiList = new ArrayList<Coup>();
 		
@@ -25,7 +24,7 @@ class StrategyTrahirTest {
 		
 		myList.add(strat.play(myList, ennemiList));
 		
-		assertEquals(myList.get(1), Coup.TRAHIR);
+		assertEquals(Coup.TRAHIR,myList.get(1));
 		
 	}
 

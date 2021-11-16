@@ -16,7 +16,7 @@ class StrategyDonnantDonnant implements Strategy {
 		if (ennemiesList.size() > 0) {
 			return ennemiesList.get(ennemiesList.size() - 1);
 		} else {
-			return Tools.generateCoup50_50();
+			return Tools.generateRandomChoice();
 		}
 	}
 

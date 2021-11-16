@@ -3,14 +3,12 @@ package com.server;
 import data.object.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,12 +21,16 @@ import com.tools.Tools;
 @RequestMapping("/")
 public class Run {
 
-
 	private static Logger logger = Logger.getLogger("Logger");
 	private List<Joueur> players = new ArrayList<Joueur>();
-	private List<Rencontre> rencontresOpen = new ArrayList<Rencontre>();
-	private List<Rencontre> rencontresClosed = new ArrayList<Rencontre>();
+	private List<Rencontre> gameOpen = new ArrayList<Rencontre>();
+	private List<Rencontre> gameClosed = new ArrayList<Rencontre>();
 
+	/**
+	 * REDIRIGE LES UTILISATEURS A LA PAGE D'ACCUEIL DU SERVEUR
+	 * 
+	 * @return
+	 */
 	@GetMapping("/")
 	public ModelAndView homeServer() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -42,9 +44,9 @@ public class Run {
 	 * @param name_player
 	 * @return
 	 */
-	@GetMapping("/new_player/{name_player}")
-	Integer new_player(@PathVariable(value = "name_player") String name_player) {
-		Joueur j = new Joueur(name_player);
+	@GetMapping("/new-player/{namePlayer}")
+	public Integer newPlayer(@PathVariable(value = "namePlayer") String namePlayer) {
+		Joueur j = new Joueur(namePlayer);
 		j.setId(Tools.random1_10000());
 		this.players.add(j);
 		return j.getId();
@@ -56,7 +58,7 @@ public class Run {
 	 * @return
 	 */
 	@GetMapping("/players")
-	String get_players() {
+	public String getPlayers() {
 		String players = "";
 		for (Joueur joueur : this.players) {
 			players += "Nom : " + joueur.getName() + ", ID : " + joueur.getId() + "\n";
@@ -67,15 +69,16 @@ public class Run {
 	/**
 	 * CREER UNE PARTIE
 	 * 
-	 * @param nb_tours  - NOMBRE DE TOURS
-	 * @param id_joueur - ID DU JOUEUR QUI CREE
+	 * @param numberOfTurn - NOMBRE DE TOURS
+	 * @param idPlayer     - ID DU JOUEUR QUI CREE
 	 * @return
 	 */
-	@GetMapping("/new-party/{nb_tours}&{id_joueur}")
-	int newParty(@PathVariable(value = "nb_tours") int nb_tours, @PathVariable(value = "id_joueur") int id_joueur) {
-		Rencontre r = new Rencontre(nb_tours, Tools.getJoueur(this.players, id_joueur));
+	@GetMapping("/new-party/{numberOfTurn}&{idPlayer}")
+	public int newParty(@PathVariable(value = "numberOfTurn") int numberOfTurn,
+			@PathVariable(value = "idPlayer") int idPlayer) {
+		Rencontre r = new Rencontre(numberOfTurn, Tools.getJoueur(this.players, idPlayer));
 		r.setId(Tools.random1_10000());
-		this.rencontresOpen.add(r);
+		this.gameOpen.add(r);
 		return r.getId();
 	}
 
@@ -85,35 +88,30 @@ public class Run {
 	 * @return
 	 */
 	@GetMapping("/party-open")
-	String getAllPartyOpen() {
-		String allParty = "";
-		if (rencontresOpen.size() > 0) {
-			for (int i = 0; i < this.rencontresOpen.size() - 1; i++) {
-				allParty += "Rencontre num : " + this.rencontresOpen.get(i).getId() + " elle se joue en "
-						+ this.rencontresOpen.get(i).getNb_tours() + " tours.#";
-			}
-			allParty += "Rencontre num : " + this.rencontresOpen.get(this.rencontresOpen.size() - 1).getId()
-					+ " elle se joue en " + this.rencontresOpen.get(this.rencontresOpen.size() - 1).getNb_tours()
-					+ " tours.";
+	public String getAllPartyOpen() {
+		String allGame = "";
+		for (Rencontre game : this.gameOpen) {
+			allGame += "Rencontre num : " + game.getId() + " elle se joue en " + game.getNumberOfTurn()
+					+ " tours.#";
 		}
-		return allParty;
+		return allGame.substring(0, allGame.length() - 1);
 	}
 
 	/**
 	 * REJOINDRE UNE PARTIE
 	 * 
-	 * @param id_party  - L'id de la partie qu'on veut rejoindre
-	 * @param id_joueur - L'id du joueur qui veut rejoindre
+	 * @param idGame   - L'id de la partie qu'on veut rejoindre
+	 * @param idPlayer - L'id du joueur qui veut rejoindre
 	 * @return
 	 */
-	@GetMapping("/join-party/{id_party}&{id_joueur}")
-	synchronized Boolean joinParty(@PathVariable(value = "id_party") int id_party,
-			@PathVariable(value = "id_joueur") int id_joueur) {
-		Rencontre r = Tools.getPartyOpen(this.rencontresOpen, id_party);
-		Joueur j = Tools.getJoueur(this.players, id_joueur);
+	@GetMapping("/join-party/{idGame}&{idPlayer}")
+	public synchronized Boolean joinParty(@PathVariable(value = "idGame") int idGame,
+			@PathVariable(value = "idPlayer") int idPlayer) {
+		Rencontre r = Tools.getGameOpen(this.gameOpen, idGame);
+		Joueur j = Tools.getJoueur(this.players, idPlayer);
 		if (r != null && j != null) {
 			if (j.joinParty(r)) {
-				Tools.closeAGame(r, rencontresOpen, rencontresClosed);
+				Tools.closeAGame(r, gameOpen, gameClosed);
 				notifyAll();
 				return true;
 			}
@@ -124,66 +122,87 @@ public class Run {
 	/**
 	 * QUITTER UNE PARTIE
 	 * 
-	 * @param id_joueur   - ID du joueur qui veut quitter la partie
-	 * @param id_strategy - ID de la partie que l'on veut quitter
+	 * @param idPlayer   - ID du joueur qui veut quitter la partie
+	 * @param idStrategy - ID de la partie que l'on veut quitter
 	 * @return
 	 */
-	@GetMapping("/leave-my-game/{id_joueur}&{id_strategy}&{id_party}")
-	void leaveGame(@PathVariable(value = "id_joueur") int id_joueur,
-			@PathVariable(value = "id_strategy") int id_strategy, @PathVariable(value = "id_party") int id_party) {
-		Joueur j = Tools.getJoueur(players, id_joueur);
-		j.leave(id_strategy);
-		Rencontre r = Tools.getPartyClose(this.rencontresClosed, id_party);
-		r.leave(j);
+	@GetMapping("/leave-my-game/{idPlayer}&{idStrategy}&{idGame}")
+	public void leaveGame(@PathVariable(value = "idPlayer") int idPlayer,
+			@PathVariable(value = "idStrategy") int idStrategy, @PathVariable(value = "idGame") int idGame) {
+		Joueur j = Tools.getJoueur(players, idPlayer);
+		Rencontre r = Tools.getGameClosed(this.gameClosed, idGame);
+		r.leave(j, idStrategy);
 	}
-	
-	@GetMapping("/play/{id_joueur}&{id_party}&{coup_play}")
-	String play(@PathVariable(value = "id_joueur") int id_joueur,@PathVariable(value = "id_party") int id_party,@PathVariable(value = "coup_play") int coup_play) {
-		Rencontre r = Tools.getPartyClose(this.rencontresClosed,id_party);
-		String score="";
-		if(coup_play == 0) {
-			score = r.play(id_joueur, Coup.TRAHIR);
+
+	/**
+	 * JOUER UN TOUR
+	 * 
+	 * @param idPlayer - ID du joueur qui veut jouer
+	 * @param idGame   - ID de la partie dans la quelle le joueur veut joeur
+	 * @param choice   - Coup que le joueur a choisi (Coopérer/Trahir)
+	 * @return Le score après ce tour
+	 */
+	@GetMapping("/play/{idPlayer}&{idGame}&{choice}")
+	public String play(@PathVariable(value = "idPlayer") int idPlayer, @PathVariable(value = "idGame") int idGame,
+			@PathVariable(value = "choice") int choice) {
+		Rencontre r = Tools.getGameClosed(this.gameClosed, idGame);
+		String score = "";
+		if (choice == 0) {
+			score = r.play(idPlayer, Coup.TRAHIR);
 		} else {
-			score = r.play(id_joueur, Coup.COOPERER);
+			score = r.play(idPlayer, Coup.COOPERER);
 		}
 		return score;
 	}
-	
-	@GetMapping("/have-join/{id_party}")
-	synchronized boolean haveJoin(@PathVariable(value = "id_party") int id_party) {
-		Rencontre r = Tools.getAParty(id_party, this.rencontresOpen, this.rencontresClosed);
-		while(!r.haveJoin()) {
+
+	/**
+	 * SAVOIR SI UN DEUXIEME JOUEUR A REJOINS LA PARTIE
+	 * 
+	 * @param idGame - ID de la partie pour la quelle on souhaite savoir si un
+	 *                 second joueur à rejoint
+	 * @return
+	 */
+	@GetMapping("/have-join/{idGame}")
+	public synchronized boolean haveJoin(@PathVariable(value = "idGame") int idGame) {
+		Rencontre r = Tools.getAGame(idGame, this.gameOpen, this.gameClosed);
+		while (!r.haveJoin()) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
 				logger.log(Level.WARNING, "Interrupted!", e);
 				Thread.currentThread().interrupt();
-			}			
+			}
 		}
 		return true;
 	}
 
-	
-	@GetMapping("/game-finished/{id_party}")
-	boolean gameFinished(@PathVariable(value = "id_party") int id_party) {
-		Rencontre r = Tools.getPartyClose(this.rencontresClosed,id_party);
+	/**
+	 * PERMET DE SAVOIR SI UNE PARTIE EST FINIE
+	 * 
+	 * @param idGame - ID de la partie pour la quelle on souhaite savoir si
+	 *                 celle-ci est finie
+	 * @return
+	 */
+	@GetMapping("/game-finished/{idGame}")
+	public boolean gameFinished(@PathVariable(value = "idGame") int idGame) {
+		Rencontre r = Tools.getGameClosed(this.gameClosed, idGame);
 		return r.gameFinished();
 	}
-	
+
+	/**
+	 * AFFICHER TOUTE LES PARTIES COMPLETE (EN COURS ET TERMINE)
+	 * 
+	 * @return
+	 */
 	@GetMapping("/party-close")
-	String getAllPartyClose() {
-		String allParty = "";
-		if (rencontresClosed.size() > 0) {
-			for (int i = 0; i < this.rencontresClosed.size() - 1; i++) {
-				allParty += "Rencontre num : " + this.rencontresClosed.get(i).getId() + " elle se joue en "
-						+ this.rencontresClosed.get(i).getNb_tours() + " tours.#";
-			}
-			allParty += "Rencontre num : " + this.rencontresClosed.get(this.rencontresClosed.size() - 1).getId()
-					+ " elle se joue en " + this.rencontresClosed.get(this.rencontresClosed.size() - 1).getNb_tours()
-					+ " tours.";
+	public String getAllGameClose() {
+		String allGame = "";
+		for (Rencontre game : this.gameClosed) {
+			allGame += "Rencontre num : " + game.getId() + " elle se joue en "
+					+ game.getNumberOfTurn() + " tours.#";
 		}
-		return allParty;
+		return allGame.substring(0, allGame.length() - 1);
 	}
 
 }

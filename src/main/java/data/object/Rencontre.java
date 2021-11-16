@@ -2,7 +2,6 @@ package data.object;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,22 +13,22 @@ public class Rencontre {
 	private static Logger logger = Logger.getLogger("Logger");
 
 	private int id;
-	private int nb_tours;
-	private int current_tour = 1;
+	private int numberOfTurn;
+	private int currentTurn = 1;
 	public List<Coup> coupJ1;
 	public List<Coup> coupJ2;
 	public int score1 = 0;
 	public int score2 = 0;
 
-	public boolean haveLeaveJ1 = false;
-	public boolean haveLeaveJ2 = false;
+	private boolean haveLeaveJ1 = false;
+	private boolean haveLeaveJ2 = false;
 
 	public Joueur createur;
 	public Joueur joueur2 = null;
 
-	public Rencontre(int nb_tours, Joueur createur) {
+	public Rencontre(int numberOfTurn, Joueur createur) {
 		super();
-		this.nb_tours = nb_tours;
+		this.numberOfTurn = numberOfTurn;
 		this.coupJ1 = new ArrayList<Coup>();
 		this.coupJ2 = new ArrayList<Coup>();
 		this.createur = createur;
@@ -44,19 +43,20 @@ public class Rencontre {
 		}
 	}
 
-	public void leave(Joueur j) {
+	public void leave(Joueur j, int idStrategy) {
 		if (j == this.createur) {
 			this.haveLeaveJ1 = true;
 		} else if (j == this.joueur2) {
 			this.haveLeaveJ2 = true;
 		}
+		j.leave(idStrategy);
 	}
 
-	public synchronized String play(int id_joueur, Coup c) {
+	public synchronized String play(int idGamer, Coup c) {
 		boolean haveWait = false;
 
 		// ON ENREGISTRE LE COUP
-		if (id_joueur == this.createur.getId()) {
+		if (idGamer == this.createur.getId()) {
 			if (haveLeaveJ2) {
 				this.coupJ2.add(joueur2.getStrategy().play(coupJ2, coupJ1));
 			}
@@ -76,7 +76,7 @@ public class Rencontre {
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 				logger.log(Level.WARNING, "Interrupted!", e);
 				Thread.currentThread().interrupt();
 			}
@@ -85,7 +85,7 @@ public class Rencontre {
 		// SI ON A PAS ATTENDU ON UPDATE LES SCORES ET REVEILLE LES ENDORMIS
 		if (!haveWait) {
 			updateScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1));
-			current_tour++;
+			currentTurn++;
 			notifyAll();
 		}
 
@@ -141,7 +141,7 @@ public class Rencontre {
 	}
 
 	public boolean gameFinished() {
-		return this.nb_tours + 1 == this.current_tour;
+		return this.numberOfTurn + 1 == this.currentTurn;
 	}
 
 	public int getId() {
@@ -152,8 +152,8 @@ public class Rencontre {
 		this.id = id;
 	}
 
-	public int getNb_tours() {
-		return nb_tours;
+	public int getNumberOfTurn() {
+		return numberOfTurn;
 	}
 
 	public Joueur getCreateur() {
@@ -163,4 +163,14 @@ public class Rencontre {
 	public Joueur getJoueur2() {
 		return joueur2;
 	}
+
+	public boolean isHaveLeaveJ1() {
+		return haveLeaveJ1;
+	}
+
+	public boolean isHaveLeaveJ2() {
+		return haveLeaveJ2;
+	}
+	
+	
 }

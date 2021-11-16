@@ -26,9 +26,9 @@ class StrategyDonnantDonnantSoupconneuxTest {
 		ennemiList.add(Coup.COOPERER);
 		myList.add(strat.play(myList, ennemiList));
 		
-		assertEquals(myList.get(0), Coup.TRAHIR);
-		assertEquals(myList.get(1), Coup.TRAHIR);
-		assertEquals(myList.get(2), Coup.COOPERER);
+		assertEquals(Coup.TRAHIR,myList.get(0));
+		assertEquals(Coup.TRAHIR,myList.get(1));
+		assertEquals(Coup.COOPERER,myList.get(2));
 		
 		
 		
@@ -48,9 +48,9 @@ class StrategyDonnantDonnantSoupconneuxTest {
 		myList.add(strat.play(myList, ennemiList));
 		ennemiList.add(Coup.COOPERER);
 		myList.add(strat.play(myList, ennemiList));
-		
-		assertEquals(myList.get(0), Coup.TRAHIR);
-		assertEquals(myList.get(1), Coup.TRAHIR);
-		assertEquals(myList.get(2), Coup.COOPERER);
+
+		assertEquals(Coup.TRAHIR,myList.get(0));
+		assertEquals(Coup.TRAHIR,myList.get(1));
+		assertEquals(Coup.COOPERER,myList.get(2));
 	}
 }

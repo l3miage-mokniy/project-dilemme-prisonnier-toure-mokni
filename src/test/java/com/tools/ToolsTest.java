@@ -22,11 +22,11 @@ class ToolsTest {
 		joueurList.add(j1);
 		joueurList.add(j2);
 		Joueur j = Tools.getJoueur(joueurList, 900); 
-		assertEquals(j.getName(), "Yanis");
+		assertEquals("Yanis",j.getName());
 		j = Tools.getJoueur(joueurList, 901); 
-		assertEquals(j.getName(), "Allassane");
+		assertEquals("Allassane",j.getName());
 		j = Tools.getJoueur(joueurList, 902); 
-		assertEquals(j, null);
+		assertEquals(null, j);
 	}
 	
 	@Test
@@ -48,12 +48,12 @@ class ToolsTest {
 		
 		Tools.closeAGame(r2, rencontresOpen, rencontresClosed);
 	
-		Rencontre r = Tools.getPartyOpen(rencontresOpen, 1);
-		assertEquals(r, r1);
-		r = Tools.getPartyOpen(rencontresOpen, 2);
-		assertEquals(r, null);
-		r = Tools.getPartyOpen(rencontresOpen, 3);
-		assertEquals(r, r3);
+		Rencontre r = Tools.getGameOpen(rencontresOpen, 1);
+		assertEquals(r1, r);
+		r = Tools.getGameOpen(rencontresOpen, 2);
+		assertEquals(null, r);
+		r = Tools.getGameOpen(rencontresOpen, 3);
+		assertEquals(r3, r);
 	}
 	
 
@@ -74,12 +74,12 @@ class ToolsTest {
 		Tools.closeAGame(r1, rencontresOpen, rencontresClosed);
 		Tools.closeAGame(r2, rencontresOpen, rencontresClosed);
 		
-		Rencontre r = Tools.getPartyClose(rencontresClosed, 1);
-		assertEquals(r, r1);
-		r = Tools.getPartyClose(rencontresClosed, 2);
-		assertEquals(r, r2);
-		r = Tools.getPartyClose(rencontresOpen, 3);
-		assertEquals(r, null);
+		Rencontre r = Tools.getGameClosed(rencontresClosed, 1);
+		assertEquals(r1, r);
+		r = Tools.getGameClosed(rencontresClosed, 2);
+		assertEquals(r2, r);
+		r = Tools.getGameClosed(rencontresOpen, 3);
+		assertEquals(null, r);
 	}
 	
 	@Test
@@ -101,12 +101,12 @@ class ToolsTest {
 		
 		Tools.closeAGame(r2, rencontresOpen, rencontresClosed);
 	
-		Rencontre r = Tools.getPartyClose(rencontresClosed, 1);
-		assertEquals(r, null);
-		r = Tools.getPartyClose(rencontresClosed, 2);
-		assertEquals(r, r2);
-		r = Tools.getPartyClose(rencontresClosed, 3);
-		assertEquals(r, null);
+		Rencontre r = Tools.getGameClosed(rencontresClosed, 1);
+		assertEquals(null, r);
+		r = Tools.getGameClosed(rencontresClosed, 2);
+		assertEquals(r2, r);
+		r = Tools.getGameClosed(rencontresClosed, 3);
+		assertEquals(null, r);
 	}
 
 	@Test
@@ -128,11 +128,11 @@ class ToolsTest {
 		
 		Tools.closeAGame(r2, rencontresOpen, rencontresClosed);
 	
-		Rencontre r = Tools.getAParty(1,rencontresOpen, rencontresClosed);
-		assertEquals(r, r1);
-		r = Tools.getAParty(2,rencontresOpen, rencontresClosed);
-		assertEquals(r, r2);
-		r = Tools.getAParty(3,rencontresOpen, rencontresClosed);
-		assertEquals(r, r3);
+		Rencontre r = Tools.getAGame(1,rencontresOpen, rencontresClosed);
+		assertEquals(r1, r);
+		r = Tools.getAGame(2,rencontresOpen, rencontresClosed);
+		assertEquals(r2, r);
+		r = Tools.getAGame(3,rencontresOpen, rencontresClosed);
+		assertEquals(r3, r);
 	}
 }

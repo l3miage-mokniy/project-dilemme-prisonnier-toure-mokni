@@ -17,7 +17,7 @@ class StrategyRancunierDoux implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		if(ennemiesList.size() >= 1) {
+		if(!ennemiesList.isEmpty()) {
 			if(tourOfPunishment == 0 && ennemiesList.get(ennemiesList.size()-1) == Coup.COOPERER) {
 				return Coup.COOPERER;
 			}

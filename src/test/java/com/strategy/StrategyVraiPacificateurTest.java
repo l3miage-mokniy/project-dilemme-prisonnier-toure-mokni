@@ -25,7 +25,7 @@ class StrategyVraiPacificateurTest {
 		
 		myList.add(strat.play(myList, ennemiList));
 		
-		assertEquals(myList.get(1), Coup.COOPERER);
+		assertEquals(Coup.COOPERER,myList.get(1));
 		
 	}
 

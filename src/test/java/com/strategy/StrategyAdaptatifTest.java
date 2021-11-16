@@ -23,13 +23,13 @@ class StrategyAdaptatifTest {
 		
 		for(int i = 0; i< 12; i++) {
 			myList.add(strat.play(myList,ennemiList));
-			ennemiList.add(Tools.generateCoup50_50());	
+			ennemiList.add(Tools.generateRandomChoice());	
 		}
 		for(int i = 0; i< 6; i++) {
-			assertEquals(myList.get(i),Coup.COOPERER);
+			assertEquals(Coup.COOPERER,myList.get(i));
 		}
 		for(int i = 6 ; i< 11; i++) {
-			assertEquals(myList.get(i),Coup.TRAHIR);
+			assertEquals(Coup.TRAHIR,myList.get(i));
 		}		
 		
 	}
@@ -49,12 +49,12 @@ class StrategyAdaptatifTest {
 			myList.add(strat.play(myList,ennemiList));	
 		}
 		for(int i = 0; i< 6; i++) {
-			assertEquals(myList.get(i),Coup.COOPERER);
+			assertEquals(Coup.COOPERER,myList.get(i));
 		}
 		for(int i = 6 ; i< 11; i++) {
-			assertEquals(myList.get(i),Coup.TRAHIR);
+			assertEquals(Coup.TRAHIR,myList.get(i));
 		}
-		assertEquals(myList.get(11), Coup.TRAHIR);
+		assertEquals(Coup.TRAHIR,myList.get(11));
 			
 		
 	}

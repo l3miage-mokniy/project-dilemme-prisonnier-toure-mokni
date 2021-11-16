@@ -19,12 +19,12 @@ class StrategyDonnantDonnantSoupconneux implements Strategy {
 			return Coup.TRAHIR;
 		}
 		else {
-			if (ennemiesList.size() > 0) {
+			if (!ennemiesList.isEmpty()) {
 				tour++;
 				return ennemiesList.get(ennemiesList.size() - 1);
 			} else {
 				tour++;
-				return Tools.generateCoup50_50();
+				return Tools.generateRandomChoice();
 			}
 		}
 	}

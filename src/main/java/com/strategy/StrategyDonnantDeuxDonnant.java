@@ -20,10 +20,10 @@ class StrategyDonnantDeuxDonnant implements Strategy {
 			if (ennemiesList.get(ennemiesList.size() - 1) == ennemiesList.get(ennemiesList.size() - 2)) {
 				return ennemiesList.get(ennemiesList.size() - 1);
 			} else {
-				return Tools.generateCoup50_50();
+				return Tools.generateRandomChoice();
 			}
 		} else {
-			return Tools.generateCoup50_50();
+			return Tools.generateRandomChoice();
 		}
 	}
 

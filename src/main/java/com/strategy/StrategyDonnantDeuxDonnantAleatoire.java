@@ -17,14 +17,14 @@ class StrategyDonnantDeuxDonnantAleatoire implements Strategy {
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
 		if (ennemiesList.size() >= 2) {
-			if ((Tools.random0_2() <= 1)
+			if ((Tools.randomBetween0And2() <= 1)
 					&& (ennemiesList.get(ennemiesList.size() - 1) == ennemiesList.get(ennemiesList.size() - 2))) {
 				return ennemiesList.get(ennemiesList.size() - 1);
 			} else {
-				return Tools.generateCoup50_50();
+				return Tools.generateRandomChoice();
 			}
 		} else {
-			return Tools.generateCoup50_50();
+			return Tools.generateRandomChoice();
 		}
 	}
 

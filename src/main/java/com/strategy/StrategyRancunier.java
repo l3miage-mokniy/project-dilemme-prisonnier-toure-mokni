@@ -32,7 +32,7 @@ class StrategyRancunier implements Strategy {
 			}
 			else {
 				tour++;
-				if(Tools.random0_1() == 1) {
+				if(Tools.randomBetween0And1() == 1) {
 					return Coup.COOPERER;
 				}
 				else {

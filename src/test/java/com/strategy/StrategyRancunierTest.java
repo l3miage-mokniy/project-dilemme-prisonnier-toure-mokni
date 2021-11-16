@@ -31,11 +31,11 @@ class StrategyRancunierTest {
 		ennemiList.add(Coup.COOPERER);
 		myList.add(strat.play(myList, ennemiList));
 		
-		assertEquals(myList.get(0), Coup.COOPERER);
-		assertEquals(myList.get(1), Coup.COOPERER);
-		assertEquals(myList.get(2), Coup.TRAHIR);
-		assertEquals(myList.get(3), Coup.TRAHIR);
-		assertEquals(myList.get(4), Coup.TRAHIR);
+		assertEquals(Coup.COOPERER,myList.get(0));
+		assertEquals(Coup.COOPERER,myList.get(1));
+		assertEquals(Coup.TRAHIR,myList.get(2));
+		assertEquals(Coup.TRAHIR,myList.get(3));
+		assertEquals(Coup.TRAHIR,myList.get(4));
 	}
 
 }

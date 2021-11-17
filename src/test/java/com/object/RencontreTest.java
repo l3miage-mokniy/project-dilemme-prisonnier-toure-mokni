@@ -1,9 +1,11 @@
-package data.object;
+package com.object;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.object.Joueur;
+import com.object.Rencontre;
 import com.tools.Coup;
 
 class RencontreTest {

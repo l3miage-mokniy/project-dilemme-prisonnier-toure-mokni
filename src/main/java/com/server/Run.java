@@ -1,6 +1,5 @@
 package com.server;
 
-import data.object.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.object.Joueur;
+import com.object.Rencontre;
 import com.tools.Coup;
 import com.tools.Tools;
 

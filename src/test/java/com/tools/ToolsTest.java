@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import data.object.Joueur;
-import data.object.Rencontre;
+import com.object.Joueur;
+import com.object.Rencontre;
 
 class ToolsTest {
 	

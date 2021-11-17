@@ -1,8 +1,9 @@
 package com.tools;
 
 import java.util.List;
-import data.object.Joueur;
-import data.object.Rencontre;
+
+import com.object.Joueur;
+import com.object.Rencontre;
 
 public class Tools {
 

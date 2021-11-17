@@ -1,4 +1,4 @@
-package data.object;
+package com.object;
 
 import com.strategy.Strategy;
 import com.strategy.StrategyFactory;

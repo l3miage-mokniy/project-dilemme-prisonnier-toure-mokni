@@ -90,7 +90,7 @@ public class Rencontre {
 		}
 
 		//ON RETOURNE LES SCORES
-		return this.getScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1));
+		return this.getScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1))+"#"+this.currentTurn;
 	}
 
 	private boolean bothHavePlay() {

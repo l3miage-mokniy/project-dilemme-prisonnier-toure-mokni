@@ -54,9 +54,9 @@ public class Rencontre {
 	public synchronized String play(int idGamer, Coup c) {
 		boolean haveWait = false;
 		Tour currentTurn;
-		
+		System.out.println("TAILL ALLTOUR"+this.allTurn.size());
 		//SI C'EST LE PREMIER TOUR OU LES DEUX ON DEJA JOUE		
-		if(this.allTurn.isEmpty() || (this.allTurn.get(this.allTurn.size()-1).getCoupJ1() != null && this.allTurn.get(this.allTurn.size()-1).getCoupJ1() != null)) {
+		if(this.allTurn.isEmpty() || (this.allTurn.get(this.allTurn.size()-1).getCoupJ1() != null && this.allTurn.get(this.allTurn.size()-1).getCoupJ2() != null)) {
 			currentTurn = new Tour();
 			this.allTurn.add(currentTurn);
 		} else {
@@ -77,11 +77,12 @@ public class Rencontre {
 		}
 
 		// SI L'AUTRE N'A PAS JOUE ON ATTEND
-		while (!this.bothHavePlay() && !(haveLeaveJ1 && haveLeaveJ2)) {
+		while (!this.bothHavePlay(currentTurn) && !(haveLeaveJ1 && haveLeaveJ2)) {
 			if (!haveWait) {
 				haveWait = true;
 			}
 			try {
+				System.out.println("je dors");
 				wait();
 			} catch (InterruptedException e) {
 				//e.printStackTrace();
@@ -94,15 +95,18 @@ public class Rencontre {
 		if (!haveWait) {
 			updateScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2());
 			this.currentTurn++;
-			notifyAll();
+			System.out.println("je reveille");
+			if(!(haveLeaveJ1 || haveLeaveJ2)) {
+				notifyAll();
+			}
 		}
 
 		//ON RETOURNE LES SCORES
 		return this.getScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2())+"#"+this.currentTurn;
 	}
 
-	private boolean bothHavePlay() {
-		return this.allTurn.get(this.allTurn.size()-1).getCoupJ1() != null && this.allTurn.get(this.allTurn.size()-1).getCoupJ2() != null;
+	private boolean bothHavePlay(Tour turn) {
+		return turn.getCoupJ1() != null && turn.getCoupJ2() != null;
 	}
 
 	public String getScore(Coup coupCreateur, Coup coupJoueur2) {

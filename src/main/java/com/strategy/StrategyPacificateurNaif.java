@@ -25,12 +25,7 @@ class StrategyPacificateurNaif implements Strategy {
 			}	
 		}
 		else {
-			if(Tools.randomBetween0And1() == 1) {
-				return Coup.COOPERER;
-			}
-			else {
-				return Coup.TRAHIR;
-			}
+			return Tools.generateRandomChoice();
 		}
 	}
 

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.tools.Coefficient;
 import com.tools.Coup;
+import com.tools.Tools;
 
 public class Rencontre {
 
@@ -15,8 +16,7 @@ public class Rencontre {
 	private int id;
 	private int numberOfTurn;
 	private int currentTurn = 1;
-	public List<Coup> coupJ1;
-	public List<Coup> coupJ2;
+	public List<Tour> allTurn;
 	public int score1 = 0;
 	public int score2 = 0;
 
@@ -29,8 +29,7 @@ public class Rencontre {
 	public Rencontre(int numberOfTurn, Joueur createur) {
 		super();
 		this.numberOfTurn = numberOfTurn;
-		this.coupJ1 = new ArrayList<Coup>();
-		this.coupJ2 = new ArrayList<Coup>();
+		this.allTurn = new ArrayList<Tour>();
 		this.createur = createur;
 	}
 
@@ -54,18 +53,27 @@ public class Rencontre {
 
 	public synchronized String play(int idGamer, Coup c) {
 		boolean haveWait = false;
+		Tour currentTurn;
+		
+		//SI C'EST LE PREMIER TOUR OU LES DEUX ON DEJA JOUE		
+		if(this.allTurn.isEmpty() || (this.allTurn.get(this.allTurn.size()-1).getCoupJ1() != null && this.allTurn.get(this.allTurn.size()-1).getCoupJ1() != null)) {
+			currentTurn = new Tour();
+			this.allTurn.add(currentTurn);
+		} else {
+			currentTurn = this.allTurn.get(this.allTurn.size()-1);
+		}
 
 		// ON ENREGISTRE LE COUP
 		if (idGamer == this.createur.getId()) {
 			if (haveLeaveJ2) {
-				this.coupJ2.add(joueur2.getStrategy().play(coupJ2, coupJ1));
+				currentTurn.setCoupJ2(joueur2.getStrategy().play(Tools.generatorOfCoupList(2, this.allTurn),Tools.generatorOfCoupList(1, this.allTurn)));
 			}
-			this.coupJ1.add(c);
+			currentTurn.setCoupJ1(c);
 		} else {
 			if (haveLeaveJ1) {
-				this.coupJ1.add(createur.getStrategy().play(coupJ1, coupJ2));
+				currentTurn.setCoupJ1(createur.getStrategy().play(Tools.generatorOfCoupList(1, this.allTurn),Tools.generatorOfCoupList(2, this.allTurn)));
 			}
-			this.coupJ2.add(c);
+			currentTurn.setCoupJ2(c);
 		}
 
 		// SI L'AUTRE N'A PAS JOUE ON ATTEND
@@ -84,17 +92,17 @@ public class Rencontre {
 
 		// SI ON A PAS ATTENDU ON UPDATE LES SCORES ET REVEILLE LES ENDORMIS
 		if (!haveWait) {
-			updateScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1));
-			currentTurn++;
+			updateScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2());
+			this.currentTurn++;
 			notifyAll();
 		}
 
 		//ON RETOURNE LES SCORES
-		return this.getScore(this.coupJ1.get(this.coupJ1.size() - 1), this.coupJ2.get(this.coupJ2.size() - 1))+"#"+this.currentTurn;
+		return this.getScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2())+"#"+this.currentTurn;
 	}
 
 	private boolean bothHavePlay() {
-		return this.coupJ1.size() == this.coupJ2.size();
+		return this.allTurn.get(this.allTurn.size()-1).getCoupJ1() != null && this.allTurn.get(this.allTurn.size()-1).getCoupJ2() != null;
 	}
 
 	public String getScore(Coup coupCreateur, Coup coupJoueur2) {
@@ -171,6 +179,5 @@ public class Rencontre {
 	public boolean isHaveLeaveJ2() {
 		return haveLeaveJ2;
 	}
-	
 	
 }

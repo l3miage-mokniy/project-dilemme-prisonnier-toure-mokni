@@ -1,5 +1,6 @@
 package com.strategy;
 
+import com.object.Tour;
 import com.tools.Coup;
 import java.util.List;
 

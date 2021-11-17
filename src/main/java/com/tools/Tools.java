@@ -1,9 +1,11 @@
 package com.tools;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.object.Joueur;
 import com.object.Rencontre;
+import com.object.Tour;
 
 public class Tools {
 
@@ -95,6 +97,22 @@ public class Tools {
 			r = Tools.getGameOpen(gameOpen, idGame);
 		}
 		return r;
+	}
+	
+	public static List<Coup> generatorOfCoupList(int joueur, List<Tour> allTurn) {
+		ArrayList<Coup> allCoup = new ArrayList<Coup>();
+		for (Tour tour: allTurn) {
+			if(joueur == 1) {
+				if(tour.getCoupJ1() != null) {
+					allCoup.add(tour.getCoupJ1());
+				}
+			} else {
+				if(tour.getCoupJ2() != null) {
+					allCoup.add(tour.getCoupJ2());
+				}
+			}
+		}
+		return allCoup;
 	}
 
 }

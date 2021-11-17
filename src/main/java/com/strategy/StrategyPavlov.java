@@ -21,20 +21,10 @@ class StrategyPavlov implements Strategy {
 				return mineList.get(mineList.size()-1);
 				}
 			else {
-				if(Tools.randomBetween0And1() == 1) {
-					return Coup.COOPERER;
-				}
-				else {
-					return Coup.TRAHIR;
-				}
+				return Tools.generateRandomChoice();
 			}
 		}else {
-			if(Tools.randomBetween0And1() == 1) {
-				return Coup.COOPERER;
-			}
-			else {
-				return Coup.TRAHIR;
-			}
+			return Tools.generateRandomChoice();
 		}
 	}
 

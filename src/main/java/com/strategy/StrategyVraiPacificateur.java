@@ -1,5 +1,5 @@
 
-	package com.strategy;
+package com.strategy;
 
 import java.util.List;
 
@@ -17,31 +17,24 @@ class StrategyVraiPacificateur implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		
-		if(!ennemiesList.isEmpty()) {
-			if(ennemiesList.get(ennemiesList.size()-1) != Coup.TRAHIR && ennemiesList.get(ennemiesList.size()-2) != Coup.TRAHIR) {
+
+		if (ennemiesList.size() > 2) {
+			if (ennemiesList.get(ennemiesList.size() - 1) != Coup.TRAHIR
+					&& ennemiesList.get(ennemiesList.size() - 2) != Coup.TRAHIR) {
 				return Coup.COOPERER;
-			}
-			else {
-				if(Tools.randomBetween0And4() == 3 && ennemiesList.get(ennemiesList.size()-1) == Coup.TRAHIR ) {
+			} else {
+				if (Tools.randomBetween0And4() == 3) {
 					return Coup.COOPERER;
-					
-				}
-				else {
+
+				} else {
 					return Coup.TRAHIR;
-					
+
 				}
-			}	
-		}
-		else {
-			if(Tools.randomBetween0And1() == 1) {
-				return Coup.COOPERER;
 			}
-			else {
-				return Coup.TRAHIR;
-			}
+		} else {
+			return Tools.generateRandomChoice();
 		}
-	
+
 	}
 
 }

@@ -2,6 +2,7 @@ package com.strategy;
 
 import java.util.List;
 
+import com.object.Tour;
 import com.tools.Coup;
 
 /**

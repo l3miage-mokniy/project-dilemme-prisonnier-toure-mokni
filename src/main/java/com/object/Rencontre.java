@@ -42,19 +42,28 @@ public class Rencontre {
 		}
 	}
 
-	public void leave(Joueur j, int idStrategy) {
+	public boolean haveJoin() {
+		if (this.joueur2 == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public synchronized void leave(Joueur j, int idStrategy) {
 		if (j == this.createur) {
 			this.haveLeaveJ1 = true;
 		} else if (j == this.joueur2) {
 			this.haveLeaveJ2 = true;
 		}
 		j.leave(idStrategy);
+		notifyAll();
 	}
 
 	public synchronized String play(int idGamer, Coup c) {
 		boolean haveWait = false;
 		Tour currentTurn;
-		System.out.println("TAILL ALLTOUR"+this.allTurn.size());
+		
 		//SI C'EST LE PREMIER TOUR OU LES DEUX ON DEJA JOUE		
 		if(this.allTurn.isEmpty() || (this.allTurn.get(this.allTurn.size()-1).getCoupJ1() != null && this.allTurn.get(this.allTurn.size()-1).getCoupJ2() != null)) {
 			currentTurn = new Tour();
@@ -77,12 +86,11 @@ public class Rencontre {
 		}
 
 		// SI L'AUTRE N'A PAS JOUE ON ATTEND
-		while (!this.bothHavePlay(currentTurn) && !(haveLeaveJ1 && haveLeaveJ2)) {
+		while (!this.bothHavePlay(currentTurn) && !(haveLeaveJ1 || haveLeaveJ2)) {
 			if (!haveWait) {
 				haveWait = true;
 			}
 			try {
-				System.out.println("je dors");
 				wait();
 			} catch (InterruptedException e) {
 				//e.printStackTrace();
@@ -95,7 +103,6 @@ public class Rencontre {
 		if (!haveWait) {
 			updateScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2());
 			this.currentTurn++;
-			System.out.println("je reveille");
 			if(!(haveLeaveJ1 || haveLeaveJ2)) {
 				notifyAll();
 			}
@@ -144,14 +151,6 @@ public class Rencontre {
 		}
 	}
 
-	public boolean haveJoin() {
-		if (this.joueur2 == null) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
 	public boolean gameFinished() {
 		return this.numberOfTurn + 1 == this.currentTurn;
 	}
@@ -183,5 +182,4 @@ public class Rencontre {
 	public boolean isHaveLeaveJ2() {
 		return haveLeaveJ2;
 	}
-	
 }

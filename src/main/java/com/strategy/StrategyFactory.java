@@ -15,8 +15,8 @@ public class StrategyFactory {
 		return sF;
 	}
 	
-    public static Strategy getStrategy(int id_strategy) {
-      switch(id_strategy) {
+    public static Strategy getStrategy(int idStrategy) {
+      switch(idStrategy) {
         case 0:
             return new StrategyCooperer();
         case 1:
@@ -30,7 +30,7 @@ public class StrategyFactory {
         case 5 :
         	return new StrategyDonnantDeuxDonnant();
         case 6 :
-        	return new  StrategyDonnantDonnantSoupconneux();
+        	return new StrategyDonnantDonnantSoupconneux();
         case 7 : 
         	return new StrategyPacificateurNaif();
         case 8 : 

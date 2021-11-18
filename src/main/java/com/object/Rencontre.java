@@ -16,15 +16,15 @@ public class Rencontre {
 	private int id;
 	private int numberOfTurn;
 	private int currentTurn = 1;
-	public List<Tour> allTurn;
-	public int score1 = 0;
-	public int score2 = 0;
+	private List<Tour> allTurn;
+	private int score1 = 0;
+	private int score2 = 0;
 
 	private boolean haveLeaveJ1 = false;
 	private boolean haveLeaveJ2 = false;
 
-	public Joueur createur;
-	public Joueur joueur2 = null;
+	private Joueur createur;
+	private Joueur joueur2 = null;
 
 	public Rencontre(int numberOfTurn, Joueur createur) {
 		super();
@@ -33,7 +33,7 @@ public class Rencontre {
 		this.createur = createur;
 	}
 
-	public boolean joinParty(Joueur joueur2) {
+	public boolean joinGame(Joueur joueur2) {
 		if (this.joueur2 == null) {
 			this.joueur2 = joueur2;
 			return true;

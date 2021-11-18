@@ -48,7 +48,7 @@ public class Run {
 	@GetMapping("/new-player/{namePlayer}")
 	public Integer newPlayer(@PathVariable(value = "namePlayer") String namePlayer) {
 		Joueur j = new Joueur(namePlayer);
-		j.setId(Tools.random1_10000());
+		j.setId(Tools.generateRandomId());
 		this.players.add(j);
 		return j.getId();
 	}
@@ -78,7 +78,7 @@ public class Run {
 	public int newParty(@PathVariable(value = "numberOfTurn") int numberOfTurn,
 			@PathVariable(value = "idPlayer") int idPlayer) {
 		Rencontre r = new Rencontre(numberOfTurn, Tools.getJoueur(this.players, idPlayer));
-		r.setId(Tools.random1_10000());
+		r.setId(Tools.generateRandomId());
 		this.gameOpen.add(r);
 		return r.getId();
 	}
@@ -114,7 +114,7 @@ public class Run {
 		Rencontre r = Tools.getGameOpen(this.gameOpen, idGame);
 		Joueur j = Tools.getJoueur(this.players, idPlayer);
 		if (r != null && j != null) {
-			if (j.joinParty(r)) {
+			if (j.joinGame(r)) {
 				Tools.closeAGame(r, gameOpen, gameClosed);
 				notifyAll();
 				return true;

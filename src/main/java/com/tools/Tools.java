@@ -30,8 +30,8 @@ public class Tools {
 		}
 	}
 
-	public static int random1_10000() {
-		return (int) (Math.random() * (10000 - 1 + 1) + 1);
+	public static int generateRandomId() {
+		return (int) (Math.random() * (20000 - 1 + 1) + 1);
 	}
 
 	public static Joueur getJoueur(List<Joueur> players, int idPlayer) {
@@ -47,10 +47,10 @@ public class Tools {
 
 	}
 
-	public static Rencontre getGameOpen(List<Rencontre> gameOpen, int idParty) {
+	public static Rencontre getGameOpen(List<Rencontre> gameOpen, int idGame) {
 		if (!gameOpen.isEmpty()) {
 			int i = 0;
-			while ( i < gameOpen.size() && idParty != gameOpen.get(i).getId()) {
+			while ( i < gameOpen.size() && idGame != gameOpen.get(i).getId()) {
 				i++;
 			}
 			if (i < gameOpen.size()) {
@@ -99,10 +99,10 @@ public class Tools {
 		return r;
 	}
 	
-	public static List<Coup> generatorOfCoupList(int joueur, List<Tour> allTurn) {
+	public static List<Coup> generatorOfCoupList(int joueurIdInGame, List<Tour> allTurn) {
 		ArrayList<Coup> allCoup = new ArrayList<Coup>();
 		for (Tour tour: allTurn) {
-			if(joueur == 1) {
+			if(joueurIdInGame == 1) {
 				if(tour.getCoupJ1() != null) {
 					allCoup.add(tour.getCoupJ1());
 				}

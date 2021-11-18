@@ -19,11 +19,11 @@ class RencontreTest {
 		assertEquals(false,r1.haveJoin());
 		assertEquals(j1,r1.getCreateur());
 		
-		boolean joinOne = j2.joinParty(r1);
+		boolean joinOne = j2.joinGame(r1);
 		assertEquals(true,joinOne);
 		assertEquals(true,r1.haveJoin());
 		
-		joinOne = j3.joinParty(r1);
+		joinOne = j3.joinGame(r1);
 		assertEquals(false,joinOne);
 		
 		assertEquals(j2,r1.getJoueur2());
@@ -40,11 +40,11 @@ class RencontreTest {
 		assertEquals(false,r1.haveJoin());
 		assertEquals(j1,r1.getCreateur());
 		
-		boolean joinOne = j2.joinParty(r1);
+		boolean joinOne = j2.joinGame(r1);
 		assertEquals(true,joinOne);
 		assertEquals(true,r1.haveJoin());
 		
-		joinOne = j3.joinParty(r1);
+		joinOne = j3.joinGame(r1);
 		assertEquals(false,joinOne);
 		
 		assertEquals(j2,r1.getJoueur2());
@@ -65,7 +65,7 @@ class RencontreTest {
 		Rencontre r1 = new Rencontre(1, j1);		
 		assertEquals(false,r1.haveJoin());
 		assertEquals(j1,r1.getCreateur());
-		boolean joinOne = j2.joinParty(r1);
+		boolean joinOne = j2.joinGame(r1);
 		assertEquals(true, joinOne);
 		assertEquals(true,r1.haveJoin());
 		assertEquals(j2,r1.getJoueur2());

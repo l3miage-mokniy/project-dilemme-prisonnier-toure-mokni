@@ -17,9 +17,9 @@ class JoueurTest {
 		Joueur j3 = new Joueur("Nathan");
 		
 		Rencontre r1 = new Rencontre(0, j1);
-		boolean joinOne = j2.joinParty(r1);
+		boolean joinOne = j2.joinGame(r1);
 		assertEquals(true,joinOne);
-		joinOne = j3.joinParty(r1);
+		joinOne = j3.joinGame(r1);
 		assertEquals(false,joinOne);
 		assertEquals(j2,r1.getJoueur2());
 	}
@@ -31,10 +31,10 @@ class JoueurTest {
 		Joueur j3 = new Joueur("Nathan");
 		Rencontre r1 = new Rencontre(0, j1);
 		
-		boolean joinOne = j2.joinParty(r1);
+		boolean joinOne = j2.joinGame(r1);
 		assertEquals(true,joinOne);
 		
-		joinOne = j3.joinParty(r1);
+		joinOne = j3.joinGame(r1);
 		assertEquals(false,joinOne);
 		
 		assertEquals(j2,r1.getJoueur2());

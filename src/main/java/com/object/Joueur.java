@@ -14,12 +14,12 @@ public class Joueur {
 		this.name = name;
 	}
 	
-	public void leave(int id_strategy) {
-		this.strategy = StrategyFactory.getStrategy(id_strategy);
+	public void leave(int idStrategy) {
+		this.strategy = StrategyFactory.getStrategy(idStrategy);
 	}
 	
-	public boolean joinParty(Rencontre r) {
-		return r.joinParty(this);
+	public boolean joinGame(Rencontre r) {
+		return r.joinGame(this);
 	}
 
 	public String getName() {

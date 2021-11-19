@@ -15,7 +15,7 @@ public class Rencontre {
 
 	private int id;
 	private int numberOfTurn;
-	private int currentTurn = 1;
+	private int currentNumberOfTurn = 1;
 	private List<Tour> allTurn;
 	private int score1 = 0;
 	private int score2 = 0;
@@ -93,7 +93,6 @@ public class Rencontre {
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				//e.printStackTrace();
 				logger.log(Level.WARNING, "Interrupted!", e);
 				Thread.currentThread().interrupt();
 			}
@@ -102,14 +101,14 @@ public class Rencontre {
 		// SI ON A PAS ATTENDU ON UPDATE LES SCORES ET REVEILLE LES ENDORMIS
 		if (!haveWait) {
 			updateScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2());
-			this.currentTurn++;
+			this.currentNumberOfTurn++;
 			if(!(haveLeaveJ1 || haveLeaveJ2)) {
 				notifyAll();
 			}
 		}
 
 		//ON RETOURNE LES SCORES
-		return this.getScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2())+"#"+this.currentTurn;
+		return this.getScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2())+"#"+this.currentNumberOfTurn;
 	}
 
 	private boolean bothHavePlay(Tour turn) {
@@ -152,7 +151,7 @@ public class Rencontre {
 	}
 
 	public boolean gameFinished() {
-		return this.numberOfTurn + 1 == this.currentTurn;
+		return this.numberOfTurn + 1 == this.currentNumberOfTurn;
 	}
 
 	public int getId() {

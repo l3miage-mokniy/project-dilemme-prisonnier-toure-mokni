@@ -12,12 +12,6 @@ public class Tour {
 		this.coupJ2 = null;
 	}
 	
-	public Tour(Coup coupJ1, Coup coupJ2) {
-		super();
-		this.coupJ1 = coupJ1;
-		this.coupJ2 = coupJ2;
-	}
-	
 	public Coup getCoupJ1() {
 		return coupJ1;
 	}

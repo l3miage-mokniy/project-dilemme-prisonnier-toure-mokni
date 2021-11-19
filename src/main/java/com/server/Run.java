@@ -59,7 +59,7 @@ public class Run {
 	 * @return
 	 */
 	@GetMapping("/players")
-	public String getPlayers() {
+	public String getAllPlayers() {
 		String players = "";
 		for (Joueur joueur : this.players) {
 			players += "Nom : " + joueur.getName() + ", ID : " + joueur.getId() + "\n";
@@ -75,7 +75,7 @@ public class Run {
 	 * @return
 	 */
 	@GetMapping("/new-party/{numberOfTurn}&{idPlayer}")
-	public int newParty(@PathVariable(value = "numberOfTurn") int numberOfTurn,
+	public int newGame(@PathVariable(value = "numberOfTurn") int numberOfTurn,
 			@PathVariable(value = "idPlayer") int idPlayer) {
 		Rencontre r = new Rencontre(numberOfTurn, Tools.getJoueur(this.players, idPlayer));
 		r.setId(Tools.generateRandomId());
@@ -89,7 +89,7 @@ public class Run {
 	 * @return
 	 */
 	@GetMapping("/party-open")
-	public String getAllPartyOpen() {
+	public String getAllGameOpen() {
 		if(!this.gameOpen.isEmpty()) {
 			String allGame = "";
 			for (Rencontre game : this.gameOpen) {
@@ -109,7 +109,7 @@ public class Run {
 	 * @return
 	 */
 	@GetMapping("/join-party/{idGame}&{idPlayer}")
-	public synchronized Boolean joinParty(@PathVariable(value = "idGame") int idGame,
+	public synchronized Boolean joinGame(@PathVariable(value = "idGame") int idGame,
 			@PathVariable(value = "idPlayer") int idPlayer) {
 		Rencontre r = Tools.getGameOpen(this.gameOpen, idGame);
 		Joueur j = Tools.getJoueur(this.players, idPlayer);

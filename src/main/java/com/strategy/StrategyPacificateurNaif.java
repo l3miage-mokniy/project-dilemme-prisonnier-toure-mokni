@@ -3,14 +3,14 @@ package com.strategy;
 import java.util.List;
 
 import com.tools.Coup;
+import com.tools.Tools;
+
 /*
  * @author Allassane 
  * Pacificateur naîf jouer comme le dernier coup de l'adversaire coopérer sur certain coup alors que 
  * l'adversaire a trahit
  *  
  */
-import com.tools.Tools;
-
 class StrategyPacificateurNaif implements Strategy {
 
 	@Override

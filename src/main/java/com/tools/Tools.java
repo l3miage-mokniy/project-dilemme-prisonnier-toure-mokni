@@ -100,7 +100,7 @@ public class Tools {
 	}
 	
 	public static List<Coup> generatorOfCoupList(int joueurIdInGame, List<Tour> allTurn) {
-		ArrayList<Coup> allCoup = new ArrayList<Coup>();
+		ArrayList<Coup> allCoup = new ArrayList<>();
 		for (Tour tour: allTurn) {
 			if(joueurIdInGame == 1) {
 				if(tour.getCoupJ1() != null) {

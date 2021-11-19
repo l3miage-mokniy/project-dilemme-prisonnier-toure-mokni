@@ -2,6 +2,7 @@ package com.strategy;
 
 import java.util.List;
 import com.tools.Coup;
+import com.tools.Tools;
 
 /*
  * 
@@ -13,30 +14,33 @@ import com.tools.Coup;
  */
 
 class StrategyRancunierDoux implements Strategy {
-	int tourOfPunishment = 0;
+	private boolean cooperate = true;
+	private int countTurn = 0;
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		if(!ennemiesList.isEmpty()) {
-			if(tourOfPunishment == 0 && ennemiesList.get(ennemiesList.size()-1) == Coup.COOPERER) {
-				return Coup.COOPERER;
-			}
-			else if (tourOfPunishment == 0 && ennemiesList.get(ennemiesList.size()-1) != Coup.COOPERER) {
-				tourOfPunishment = 6;
-				tourOfPunishment--;
-				return Coup.TRAHIR;
-			}
-			else if (tourOfPunishment >2) {
-				tourOfPunishment--;
-				return Coup.TRAHIR;
-			}
-			else {
-				if(tourOfPunishment < 3) {
-					return Coup.COOPERER;
+		if (!ennemiesList.isEmpty()) {
+			if (this.cooperate) {
+				if (ennemiesList.get(ennemiesList.size() - 1) == Coup.TRAHIR) {
+					this.cooperate = false;
+					this.countTurn = 6;
 				}
 			}
+			if (this.countTurn > 2) {
+				this.countTurn--;
+				return Coup.TRAHIR;
+			} else if (this.countTurn>0) {
+				this.countTurn--;
+				return Coup.COOPERER;
+			} else {
+				if(!cooperate) {
+					cooperate = true;
+				}
+				return Coup.COOPERER;
+			}
+		} else {
+			return Tools.generateRandomChoice();
 		}
-		return Coup.COOPERER;
 	}
 
 }

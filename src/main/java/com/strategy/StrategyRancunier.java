@@ -11,41 +11,25 @@ import com.tools.Tools;
  * */
 
 class StrategyRancunier implements Strategy {
-    int tour = 0;
-    int trahi = 0;
+	private boolean cooperate = true;
+
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		if(tour == 0) {
-			tour++;
-			return Coup.COOPERER;
-		}
-		else {
-			if( ennemiesList.size() > 1) {
-				tour++;
-				if (hasBeenBetrayed(ennemiesList)) {
+		if (ennemiesList.isEmpty()) {
+			return Tools.generateRandomChoice();
+		} else {
+			if (this.cooperate) {
+				if (ennemiesList.get(ennemiesList.size() - 1) == Coup.TRAHIR) {
+					this.cooperate = false;
+				}
+			} 
+			if (this.cooperate) {
+				return Coup.COOPERER;
+			} else {
 				return Coup.TRAHIR;
-				}
-				else {
-					return Coup.COOPERER;
-						
-				}
-			}
-			else {
-				tour++;
-				return Tools.generateRandomChoice();
 			}
 		}
-	
-	
-	}
 
-	private boolean hasBeenBetrayed(List<Coup> ennemiesList) {
-		if(trahi == 0 && ennemiesList.get(ennemiesList.size()-1) == Coup.COOPERER) {
-			return false;
-		}
-		trahi = 1;
-		return true;
-		
-	}	
+	}
 
 }

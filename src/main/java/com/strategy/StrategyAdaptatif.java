@@ -2,75 +2,56 @@ package com.strategy;
 
 import java.util.List;
 
+import com.tools.Coefficient;
 import com.tools.Coup;
 
 /*
  * @author Allassane 
  * Adaptatif Commencer avec c,c,c,c,c,c,t,t,t,t,t et choisir c ou le t qui a donné le meilleur score 
- * */
-
+ * 
+ */
 class StrategyAdaptatif implements Strategy {
-	
-
+	private Coup toSend = null;
 	private int tour = 0;
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		if( tour < 6) {
-			tour++;
+		tour++;
+		if (tour <= 6) {
 			return Coup.COOPERER;
-		}
-		else if (tour>5 && tour < 11) {
-			tour++;
+		} else if (tour <= 11) {
 			return Coup.TRAHIR;
-		}
-		else {
-			tour++;
-			return bestMiddleChoice(mineList,ennemiesList);
+		} else {
+			if (this.toSend == null) {
+				this.setCoup(mineList, ennemiesList);
+			}
+			return this.toSend;
 		}
 	}
 
-	private Coup bestMiddleChoice(List<Coup> mineList, List<Coup> ennemiesList) {
-		int trahir = 0;
-		int cooperer = 0;
-		for(int i = mineList.size()-1; (mineList.size()-1)-i< 11; i--) {
-			cooperer = scoreCoperer(mineList, ennemiesList);
-			trahir = scoreTrahir(mineList, ennemiesList);
+	private void setCoup(List<Coup> mineList, List<Coup> ennemiesList) {
+		int scoreTrahir = 0;
+		int scoreCooperer = 0;
+
+		for (int i = 1; i < mineList.size(); i++) {
+			if (i < 5) {
+				if (ennemiesList.get(ennemiesList.size() - i) == Coup.COOPERER) {
+					scoreTrahir += Coefficient.T.getPoint();
+				} else {
+					scoreTrahir += Coefficient.P.getPoint();
+				}
+			} else {
+				if (ennemiesList.get(ennemiesList.size() - i) == Coup.COOPERER) {
+					scoreCooperer += Coefficient.C.getPoint();
+				} else {
+					scoreCooperer += Coefficient.D.getPoint();
+				}
+			}
 		}
-	
-		return cooperer > trahir ? Coup.COOPERER: Coup.TRAHIR;
-	}
-
-	private int scoreTrahir(List<Coup> mineList, List<Coup> ennemiesList) {
-		int scoore = 0;
-
-		for(int i = 6; i< mineList.size()-1; i++) {
-			if((ennemiesList.get(i) == Coup.COOPERER)) {
-				scoore += 5;
-			}
-			else{
-				scoore += 1;
-			}
-
+		if ((scoreTrahir / 5) > (scoreCooperer / 6)) {
+			this.toSend = Coup.TRAHIR;
+		} else {
+			this.toSend = Coup.COOPERER;
 		}
-
-		return scoore;
-	}
-	
-	private int scoreCoperer(List<Coup> mineList, List<Coup> ennemiesList) {
-		int scoore = 0;
-		int finCooperation = mineList.size()-6;
-		
-		for(int i = 0; i<= finCooperation; i++) {
-			if((ennemiesList.get(i) == Coup.COOPERER)) {
-				scoore += 3;
-			}
-			else{
-				scoore += 0;
-			}
-			
-		}
-		
-		return scoore;
 	}
 }

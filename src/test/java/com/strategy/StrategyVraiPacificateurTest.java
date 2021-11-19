@@ -15,17 +15,37 @@ class StrategyVraiPacificateurTest {
 	void cooperateWhenAdversaryCooperateTest() {
 
 		List<Coup> myList = new ArrayList<Coup>();
-		List<Coup> ennemiList = new ArrayList<Coup>();
+		List<Coup> ennemiesList = new ArrayList<Coup>();
 		
 		Strategy strat = new StrategyVraiPacificateur();
 		
-		ennemiList.add(Coup.COOPERER);
-		ennemiList.add(Coup.COOPERER);
+		ennemiesList.add(Coup.COOPERER);
+		myList.add(Coup.COOPERER);
+		ennemiesList.add(Coup.COOPERER);
 		myList.add(Coup.COOPERER);
 		
-		myList.add(strat.play(myList, ennemiList));
+		myList.add(strat.play(myList, ennemiesList));
 		
 		assertEquals(Coup.COOPERER,myList.get(1));
+		
+	}
+	
+
+	@Test
+	void betrayedTest() {
+
+		List<Coup> myList = new ArrayList<Coup>();
+		List<Coup> ennemiesList = new ArrayList<Coup>();
+		
+		Strategy strat = new StrategyVraiPacificateur();
+		
+		ennemiesList.add(Coup.COOPERER);
+		myList.add(Coup.COOPERER);
+		ennemiesList.add(Coup.TRAHIR);
+		
+		myList.add(strat.play(myList, ennemiesList));
+		
+		assertEquals(Coup.TRAHIR,myList.get(1));
 		
 	}
 

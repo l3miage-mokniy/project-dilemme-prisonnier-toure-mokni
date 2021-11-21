@@ -18,10 +18,8 @@ class StrategyRancunier implements Strategy {
 		if (ennemiesList.isEmpty()) {
 			return Tools.generateRandomChoice();
 		} else {
-			if (this.cooperate) {
-				if (ennemiesList.get(ennemiesList.size() - 1) == Coup.TRAHIR) {
+			if (this.cooperate && ennemiesList.get(ennemiesList.size() - 1) == Coup.TRAHIR) {
 					this.cooperate = false;
-				}
 			} 
 			if (this.cooperate) {
 				return Coup.COOPERER;

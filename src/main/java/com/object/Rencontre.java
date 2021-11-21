@@ -29,7 +29,7 @@ public class Rencontre {
 	public Rencontre(int numberOfTurn, Joueur createur) {
 		super();
 		this.numberOfTurn = numberOfTurn;
-		this.allTurn = new ArrayList<Tour>();
+		this.allTurn = new ArrayList<>();
 		this.createur = createur;
 	}
 
@@ -43,11 +43,7 @@ public class Rencontre {
 	}
 
 	public boolean haveJoin() {
-		if (this.joueur2 == null) {
-			return false;
-		} else {
-			return true;
-		}
+		return this.joueur2 != null;
 	}
 
 	public synchronized void leave(Joueur j, int idStrategy) {
@@ -63,24 +59,27 @@ public class Rencontre {
 	public synchronized String play(int idGamer, Coup c) {
 		boolean haveWait = false;
 		Tour currentTurn;
-		
-		//SI C'EST LE PREMIER TOUR OU LES DEUX ON DEJA JOUE		
-		if(this.allTurn.isEmpty() || (this.allTurn.get(this.allTurn.size()-1).getCoupJ1() != null && this.allTurn.get(this.allTurn.size()-1).getCoupJ2() != null)) {
+
+		// SI C'EST LE PREMIER TOUR OU LES DEUX ON DEJA JOUE
+		if (this.allTurn.isEmpty() || (this.allTurn.get(this.allTurn.size() - 1).getCoupJ1() != null
+				&& this.allTurn.get(this.allTurn.size() - 1).getCoupJ2() != null)) {
 			currentTurn = new Tour();
 			this.allTurn.add(currentTurn);
 		} else {
-			currentTurn = this.allTurn.get(this.allTurn.size()-1);
+			currentTurn = this.allTurn.get(this.allTurn.size() - 1);
 		}
 
 		// ON ENREGISTRE LE COUP
 		if (idGamer == this.createur.getId()) {
 			if (haveLeaveJ2) {
-				currentTurn.setCoupJ2(joueur2.getStrategy().play(Tools.generatorOfCoupList(2, this.allTurn),Tools.generatorOfCoupList(1, this.allTurn)));
+				currentTurn.setCoupJ2(joueur2.getStrategy().play(Tools.generatorOfCoupList(2, this.allTurn),
+						Tools.generatorOfCoupList(1, this.allTurn)));
 			}
 			currentTurn.setCoupJ1(c);
 		} else {
 			if (haveLeaveJ1) {
-				currentTurn.setCoupJ1(createur.getStrategy().play(Tools.generatorOfCoupList(1, this.allTurn),Tools.generatorOfCoupList(2, this.allTurn)));
+				currentTurn.setCoupJ1(createur.getStrategy().play(Tools.generatorOfCoupList(1, this.allTurn),
+						Tools.generatorOfCoupList(2, this.allTurn)));
 			}
 			currentTurn.setCoupJ2(c);
 		}
@@ -100,15 +99,17 @@ public class Rencontre {
 
 		// SI ON A PAS ATTENDU ON UPDATE LES SCORES ET REVEILLE LES ENDORMIS
 		if (!haveWait) {
-			updateScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2());
+			updateScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(),
+					this.allTurn.get(this.allTurn.size() - 1).getCoupJ2());
 			this.currentNumberOfTurn++;
-			if(!(haveLeaveJ1 || haveLeaveJ2)) {
+			if (!(haveLeaveJ1 || haveLeaveJ2)) {
 				notifyAll();
 			}
 		}
 
-		//ON RETOURNE LES SCORES
-		return this.getScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(), this.allTurn.get(this.allTurn.size() - 1).getCoupJ2())+"#"+this.currentNumberOfTurn;
+		// ON RETOURNE LES SCORES
+		return this.getScore(this.allTurn.get(this.allTurn.size() - 1).getCoupJ1(),
+				this.allTurn.get(this.allTurn.size() - 1).getCoupJ2()) + "#" + this.currentNumberOfTurn;
 	}
 
 	private boolean bothHavePlay(Tour turn) {
@@ -116,21 +117,24 @@ public class Rencontre {
 	}
 
 	public String getScore(Coup coupCreateur, Coup coupJoueur2) {
+		String haveScoreString = " a un score de : ";
+		String pointString = " point(s). ";
+
 		if (this.gameFinished()) {
 			if (score1 == score2) {
-				return "EGALITE : " + this.createur.getName() + " a un score de : " + this.score1 + " point(s) - "
-						+ this.joueur2.getName() + " a  un score de : " + this.score2 + " point(s)";
+				return "EGALITE : " + this.createur.getName() + haveScoreString + this.score1 + " point(s) - "
+						+ this.joueur2.getName() + haveScoreString + this.score2 + pointString;
 			} else if (this.score1 > this.score2) {
-				return "VICTOIRE DE : " + this.createur.getName() + " avec un score de : " + this.score1 + " point(s). "
-						+ this.joueur2.getName() + " a  un score de : " + this.score2 + " point(s)";
+				return "VICTOIRE DE : " + this.createur.getName() + " avec un score de : " + this.score1 + pointString
+						+ this.joueur2.getName() + " a  un score de : " + this.score2 + pointString;
 			} else {
-				return "VICTOIRE DE : " + this.joueur2.getName() + " avec un score de : " + this.score2 + " point(s). "
-						+ this.createur.getName() + " a  un score de : " + this.score1 + " point(s)";
+				return "VICTOIRE DE : " + this.joueur2.getName() + " avec un score de : " + this.score2 + pointString
+						+ this.createur.getName() + " a  un score de : " + this.score1 + pointString;
 			}
 		} else {
 			return this.createur.getName() + " a joué " + coupCreateur + " et a désormais un score de : " + this.score1
 					+ " point(s) - " + this.joueur2.getName() + " a joué " + coupJoueur2
-					+ " et a désormais un score de : " + this.score2 + " point(s)";
+					+ " et a désormais un score de : " + this.score2 + pointString;
 		}
 	}
 
@@ -180,5 +184,17 @@ public class Rencontre {
 
 	public boolean isHaveLeaveJ2() {
 		return haveLeaveJ2;
+	}
+
+	public List<Tour> getAllTurn() {
+		return allTurn;
+	}
+
+	public int getScore1() {
+		return score1;
+	}
+
+	public int getScore2() {
+		return score2;
 	}
 }

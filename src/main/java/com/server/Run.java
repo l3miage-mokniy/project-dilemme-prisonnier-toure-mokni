@@ -23,9 +23,9 @@ import com.tools.Tools;
 public class Run {
 
 	private static Logger logger = Logger.getLogger("Logger");
-	private List<Joueur> players = new ArrayList<Joueur>();
-	private List<Rencontre> gameOpen = new ArrayList<Rencontre>();
-	private List<Rencontre> gameClosed = new ArrayList<Rencontre>();
+	private List<Joueur> players = new ArrayList<>();
+	private List<Rencontre> gameOpen = new ArrayList<>();
+	private List<Rencontre> gameClosed = new ArrayList<>();
 
 	/**
 	 * REDIRIGE LES UTILISATEURS A LA PAGE D'ACCUEIL DU SERVEUR
@@ -60,11 +60,11 @@ public class Run {
 	 */
 	@GetMapping("/players")
 	public String getAllPlayers() {
-		String players = "";
+		StringBuilder playersString = new StringBuilder();
 		for (Joueur joueur : this.players) {
-			players += "Nom : " + joueur.getName() + ", ID : " + joueur.getId() + "\n";
+			playersString.append("Nom : " + joueur.getName() + ", ID : " + joueur.getId() + "\n");
 		}
-		return players;
+		return playersString.toString();
 	}
 
 	/**
@@ -91,12 +91,12 @@ public class Run {
 	@GetMapping("/party-open")
 	public String getAllGameOpen() {
 		if(!this.gameOpen.isEmpty()) {
-			String allGame = "";
+			StringBuilder allGame = new StringBuilder();
 			for (Rencontre game : this.gameOpen) {
-				allGame += "Rencontre num : " + game.getId() + " elle se joue en " + game.getNumberOfTurn()
-						+ " tours.#";
+				allGame.append("Rencontre num : " + game.getId() + " elle se joue en " + game.getNumberOfTurn()
+						+ " tours.#");
 			}
-			return allGame.substring(0, allGame.length() - 1);
+			return allGame.toString().substring(0, allGame.length() - 1);
 		}
 		return "";
 	}
@@ -113,12 +113,10 @@ public class Run {
 			@PathVariable(value = "idPlayer") int idPlayer) {
 		Rencontre r = Tools.getGameOpen(this.gameOpen, idGame);
 		Joueur j = Tools.getJoueur(this.players, idPlayer);
-		if (r != null && j != null) {
-			if (j.joinGame(r)) {
+		if (r != null && j != null && j.joinGame(r)) {
 				Tools.closeAGame(r, gameOpen, gameClosed);
 				notifyAll();
 				return true;
-			}
 		}
 		return false;
 	}
@@ -173,12 +171,11 @@ public class Run {
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				// e.printStackTrace();
 				logger.log(Level.WARNING, "Interrupted!", e);
 				Thread.currentThread().interrupt();
 			}
 		}
-		return true;
+		return r.haveJoin();
 	}
 
 	/**
@@ -201,12 +198,25 @@ public class Run {
 	 */
 	@GetMapping("/party-close")
 	public String getAllGameClose() {
-		String allGame = "";
+		StringBuilder allGame = new StringBuilder();
 		for (Rencontre game : this.gameClosed) {
-			allGame += "Rencontre num : " + game.getId() + " elle se joue en "
-					+ game.getNumberOfTurn() + " tours.#";
+			allGame.append("Rencontre num : " + game.getId() + " elle se joue en "
+					+ game.getNumberOfTurn() + " tours.#");
 		}
-		return allGame.substring(0, allGame.length() - 1);
+		return allGame.toString().substring(0, allGame.length() - 1);
 	}
 
+	public List<Joueur> getPlayers() {
+		return players;
+	}
+
+	public List<Rencontre> getGameOpen() {
+		return gameOpen;
+	}
+
+	public List<Rencontre> getGameClosed() {
+		return gameClosed;
+	}
+
+	
 }

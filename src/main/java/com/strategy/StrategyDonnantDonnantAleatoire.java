@@ -15,7 +15,7 @@ class StrategyDonnantDonnantAleatoire implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		if (ennemiesList.size() > 0) {
+		if (!ennemiesList.isEmpty()) {
 			if (Tools.randomBetween0And2() <= 1) {
 				return ennemiesList.get(ennemiesList.size() - 1);
 			} else {

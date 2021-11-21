@@ -2,6 +2,7 @@ package com.tools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.object.Joueur;
 import com.object.Rencontre;
@@ -9,29 +10,33 @@ import com.object.Tour;
 
 public class Tools {
 
+	private static Random r = new Random();
+	
+	private Tools() {
+		
+	}
+	
 	public static int randomBetween0And2() {
-		return (int) (Math.random() * (2 - 0 + 1) + 0);
+		return Tools.r.nextInt(3);
 	}
 
 	public static int randomBetween0And1() {
-		return (int) (Math.random() * (1 - 0 + 1) + 0);
+		return Tools.r.nextInt(2);
 	}
 	
 	public static int randomBetween0And4() {
-		return (int) (Math.random() * (4 - 0 + 1) + 0);
+		return Tools.r.nextInt(5);
 	}
 	
 	public static Coup generateRandomChoice() {
-		switch (Tools.randomBetween0And1()) {
-		case 0:
+		if(Tools.randomBetween0And1()==0) {
 			return Coup.TRAHIR;
-		default:
-			return Coup.COOPERER;
 		}
+		return Coup.COOPERER;
 	}
 
 	public static int generateRandomId() {
-		return (int) (Math.random() * (20000 - 1 + 1) + 1);
+		return Tools.r.nextInt(20001);
 	}
 
 	public static Joueur getJoueur(List<Joueur> players, int idPlayer) {

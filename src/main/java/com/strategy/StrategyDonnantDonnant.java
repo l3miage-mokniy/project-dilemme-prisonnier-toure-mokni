@@ -13,7 +13,7 @@ class StrategyDonnantDonnant implements Strategy {
 
 	@Override
 	public Coup play(List<Coup> mineList, List<Coup> ennemiesList) {
-		if (ennemiesList.size() > 0) {
+		if (!ennemiesList.isEmpty()) {
 			return ennemiesList.get(ennemiesList.size() - 1);
 		} else {
 			return Tools.generateRandomChoice();

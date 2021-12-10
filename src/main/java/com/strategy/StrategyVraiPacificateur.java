@@ -3,7 +3,7 @@ package com.strategy;
 
 import java.util.List;
 
-import com.tools.Coup;
+import strategy.*;
 import com.tools.Tools;
 
 /*	

@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.tools.Coup;
+import strategy.*;
 
 class StrategyVraiPacificateurTest {
 

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.tools.Coup;
+import strategy.Coup;
 
 class RunTest {
 

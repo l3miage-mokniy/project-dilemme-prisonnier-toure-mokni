@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tools.Coup;
-import com.tools.Tools;
+import strategy.*;
 
 class StrategyDonnantDeuxDonnantTest {
 

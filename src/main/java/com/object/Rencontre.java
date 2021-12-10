@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.tools.Coefficient;
-import com.tools.Coup;
+import strategy.Coup;
 import com.tools.Tools;
 
 public class Rencontre {

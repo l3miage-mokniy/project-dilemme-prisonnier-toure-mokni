@@ -1,6 +1,6 @@
 package com.object;
 
-import com.tools.Coup;
+import strategy.Coup;
 
 public class Tour {
 	private Coup coupJ1;

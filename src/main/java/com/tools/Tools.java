@@ -7,6 +7,7 @@ import java.util.Random;
 import com.object.Joueur;
 import com.object.Rencontre;
 import com.object.Tour;
+import strategy.Coup;
 
 public class Tools {
 
@@ -28,11 +29,11 @@ public class Tools {
 		return Tools.r.nextInt(5);
 	}
 	
-	public static Coup generateRandomChoice() {
+	public static strategy.Coup generateRandomChoice() {
 		if(Tools.randomBetween0And1()==0) {
-			return Coup.TRAHIR;
+			return strategy.Coup.TRAHIR;
 		}
-		return Coup.COOPERER;
+		return strategy.Coup.COOPERER;
 	}
 
 	public static int generateRandomId() {

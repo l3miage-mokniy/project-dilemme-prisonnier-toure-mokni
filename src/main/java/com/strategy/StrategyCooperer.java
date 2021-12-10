@@ -1,6 +1,6 @@
 package com.strategy;
 
-import com.tools.Coup;
+import strategy.*;
 import java.util.List;
 
 

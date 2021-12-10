@@ -26,7 +26,9 @@ class StrategyFactoryTest {
 		assertEquals("StrategyPavlovAleatoire", StrategyFactory.getStrategy(15).getClass().getSimpleName());
 		assertEquals("StrategyGraduel", StrategyFactory.getStrategy(16).getClass().getSimpleName());
 		assertEquals("StrategyRancunierDoux", StrategyFactory.getStrategy(17).getClass().getSimpleName());
-		assertEquals(null, StrategyFactory.getStrategy(18));
+		assertEquals("StrategyAdapter", StrategyFactory.getStrategy(18).getClass().getSimpleName());
+		assertEquals("StrategyAdapter", StrategyFactory.getStrategy(19).getClass().getSimpleName());
+		assertEquals("StrategyAdapter", StrategyFactory.getStrategy(20).getClass().getSimpleName());
 	}
 
 }

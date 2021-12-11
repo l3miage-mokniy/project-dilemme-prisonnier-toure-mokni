@@ -23,8 +23,29 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<sonar.host.url>http://im2ag-sonar.u-ga.fr:9000</sonar.host.url>
 	</properties>
-
+	<repositories>
+		<repository>
+		    <id>ProjectRepo</id>
+		    <name>ProjectRepo</name>
+		    <url>file://${project.basedir}/lib</url>
+		</repository>
+	</repositories>
 	<dependencies>
+		<dependency>
+	    <groupId>external</groupId>
+	    <artifactId>adapter</artifactId>
+	    <version>1.0</version>
+	</dependency>
+		<dependency>
+	    <groupId>external</groupId>
+	    <artifactId>interfacestrat</artifactId>
+	    <version>1.0</version>
+	</dependency>
+		<dependency>
+	    <groupId>external</groupId>
+	    <artifactId>newstrat</artifactId>
+	    <version>1.0</version>
+	</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>

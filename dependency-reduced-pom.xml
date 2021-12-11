@@ -185,27 +185,6 @@
       <groupId>com.sample</groupId>
       <artifactId>sample</artifactId>
       <version>1.0</version>
-      <scope>provided</scope>
-      <systemPath>C:\Users\Yanis\Desktop\M1_MIAGE\SEMESTRE 1\PC_Patrons_et_Composants\TP\PROJET_DILEMME\heroku\project-dilemme-prisonnier-toure-mokni/lib/NewStrategy.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>com.sampletwo</groupId>
-      <artifactId>sample</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-      <systemPath>C:\Users\Yanis\Desktop\M1_MIAGE\SEMESTRE 1\PC_Patrons_et_Composants\TP\PROJET_DILEMME\heroku\project-dilemme-prisonnier-toure-mokni/lib/InterfaceStrategy.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>com.samplethree</groupId>
-      <artifactId>sample</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-      <systemPath>C:\Users\Yanis\Desktop\M1_MIAGE\SEMESTRE 1\PC_Patrons_et_Composants\TP\PROJET_DILEMME\heroku\project-dilemme-prisonnier-toure-mokni/lib/AdapterNewStrategy.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>com.sample</groupId>
-      <artifactId>sample</artifactId>
-      <version>1.0</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/lib/NewStrategy.jar</systemPath>
     </dependency>

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.object.Joueur;
 import com.object.Rencontre;
-import strategy.Coup;
+import com.structure.Coup;
 import com.tools.Tools;
 
 @RestController

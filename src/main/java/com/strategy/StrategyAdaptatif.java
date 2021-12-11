@@ -2,8 +2,8 @@ package com.strategy;
 
 import java.util.List;
 
-import strategy.*;
-import com.tools.Coefficient;
+import com.structure.*;
+import com.structure.Coefficient;
 
 /*
  * @author Allassane 

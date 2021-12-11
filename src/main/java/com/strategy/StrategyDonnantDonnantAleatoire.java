@@ -2,7 +2,7 @@ package com.strategy;
 
 import java.util.List;
 
-import strategy.*;
+import com.structure.*;
 import com.tools.Tools;
 
 /**

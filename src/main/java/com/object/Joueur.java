@@ -1,7 +1,7 @@
 package com.object;
 
 import com.strategy.StrategyFactory;
-import strategy.Strategy;
+import com.structure.Strategy;
 
 public class Joueur {
 

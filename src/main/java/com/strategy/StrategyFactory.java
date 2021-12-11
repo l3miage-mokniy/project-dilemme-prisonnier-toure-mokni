@@ -1,6 +1,7 @@
 package com.strategy;
 
-import strategy.*;
+import com.structure.*;
+import com.adapter.StrategyAdapter;
 
 public class StrategyFactory {
 
@@ -56,7 +57,7 @@ public class StrategyFactory {
         case 17 :  
         	return new StrategyRancunierDoux();
         default:
-        	return new adapter.StrategyAdapter(idStrategy);
+        	return new StrategyAdapter(idStrategy);
         }
     }
 

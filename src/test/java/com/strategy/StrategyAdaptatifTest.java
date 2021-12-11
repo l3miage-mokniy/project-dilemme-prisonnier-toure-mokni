@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import strategy.*;
+import com.structure.*;
 import com.tools.Tools;
 
 class StrategyAdaptatifTest {

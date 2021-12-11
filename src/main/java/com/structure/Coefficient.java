@@ -1,4 +1,4 @@
-package com.tools;
+package com.structure;
 
 public enum Coefficient {
 

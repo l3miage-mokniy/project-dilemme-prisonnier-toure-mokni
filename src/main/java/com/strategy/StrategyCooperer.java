@@ -1,6 +1,6 @@
 package com.strategy;
 
-import strategy.*;
+import com.structure.*;
 import java.util.List;
 
 

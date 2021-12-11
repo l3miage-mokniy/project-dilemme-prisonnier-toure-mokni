@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import com.object.Joueur;
 import com.object.Rencontre;
-import strategy.Coup;
+import com.structure.Coup;
 
 class RencontreTest {
 	@Test

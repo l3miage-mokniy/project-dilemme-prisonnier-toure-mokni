@@ -72,6 +72,27 @@
 			<artifactId>firebase-admin</artifactId>
 			<version>7.1.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.sample</groupId>
+		    <artifactId>sample</artifactId>
+		    <version>1.0</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/lib/NewStrategy.jar</systemPath>
+		</dependency>
+		<dependency>
+		    <groupId>com.sampletwo</groupId>
+		    <artifactId>sample</artifactId>
+		    <version>1.0</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/lib/InterfaceStrategy.jar</systemPath>
+		</dependency>
+		<dependency>
+		    <groupId>com.samplethree</groupId>
+		    <artifactId>sample</artifactId>
+		    <version>1.0</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/lib/AdapterNewStrategy.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>

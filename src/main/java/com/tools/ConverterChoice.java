@@ -8,6 +8,9 @@ import com.structure.Coup;
 
 public class ConverterChoice {
 	
+	private ConverterChoice() {
+	}
+
 	public static List<Choice> convertListCoupToListChoice(List<Coup> allCoup) {
 		List<Choice> listChoice = new ArrayList<>();
 		for (Coup coup : allCoup) {

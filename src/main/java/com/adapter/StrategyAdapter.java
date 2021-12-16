@@ -46,4 +46,8 @@ public class StrategyAdapter implements Strategy {
 		return ConverterChoice.convertChoiceToCoup(c);
 	}
 
+	public newstrategy.Strategy getStratChoosObject() {
+		return stratChoosObject;
+	}
+
 }
